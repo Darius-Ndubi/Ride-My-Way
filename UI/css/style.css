@@ -1,0 +1,279 @@
+/* home page styling */
+#catcher{
+    background-image: linear-gradient(rgba(0, 0, 0, 0.33)
+        ,rgba(0, 0, 0, 0.67)),
+            url(../images/transport.jpg);
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    background-attachment: fixed;
+}
+.home_menu{
+    height: 100px;
+    margin-top: -40px;
+    /*background-color: #0c0c0c7c;*/
+    color:rgb(219, 215, 215);
+    background: linear-gradient(to right, #fcce047e, #0c0c0c7c);
+}
+.home_menu p{
+    margin-top: 50px;
+    float: left;
+    margin-left: 20px;
+    color:#ffffff;
+    font-size:30px;
+    text-align: center;
+    font-weight: 100;
+    
+}
+.home_menu li{
+    margin-top: 30px;
+    float:right;
+}
+
+/*home page landing text */
+#landing_text {
+    font-size:25px;
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif,Arial, Helvetica, sans-serif;
+    color:#e0dfdfec;
+    margin-top: 440px;
+}
+
+
+/*buttons */
+
+/* primary button */
+.button_primary{
+    border: solid 2px white;
+    background-color: #fff;
+    border-radius: 25px;
+    height: 40px;
+    width: 90px;
+    font-size: 17px;
+    color: #000;    
+}
+.button_primary a{
+    text-decoration: none;
+}
+
+.button_primary:hover{
+    border: solid 2px white;
+    background: transparent;
+    color:#fff;
+    cursor: pointer;
+}
+.button_primary a:visited{
+    color: #f78d02;
+    background:transparent;
+}
+/*secondary button*/
+.button_warm{
+    border: solid 2px white;
+    background: transparent;
+    border-radius: 25px;
+    height: 40px;
+    width: 150px;
+    font-size: 17px;
+    margin-top:10px;
+}
+.button_warm a{
+    text-decoration: none;
+    color:rgb(243, 129, 23);
+}
+
+.button_warm:hover{
+    border: solid 2px rgb(243, 129, 23);
+    cursor: pointer;
+    color: #fff;
+}
+.button_warm a:visited{
+    color: #fff;
+    background:transparent;
+}
+/* button inside the page navbar */
+.button_info{
+    height: 70px;
+
+}
+.button_info:hover{
+    color:#fff;
+    box-sizing: border-box;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 0;
+    border: solid 2px white;
+    height: 40px;
+    width: 150px;    
+}
+.button_user:hover{
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 0;
+    border: solid 2px #1c8adb;
+    color:#1c8adb;
+    background:#f8a710e3;
+}
+/*end of buttons */
+
+
+/*all pages content styling */
+body{
+    padding: 0;
+    margin: 0;
+    font-size:14px;
+    font-family: Arial, Helvetica, sans-serif;
+    text-rendering: optimizeLegibility;
+    background-color: #ffffff;
+}
+
+.all_content{
+    width:80%;
+    margin:auto;
+    overflow:hidden
+}
+
+/* header */
+header{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 53px;
+    background: linear-gradient(to right,#f78d02, #f8a710e3, #0c0c0c7c);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size:17px;
+    background-color: #f3f3f3;
+    /*border-bottom:#e8491d 3px solid;
+    box-shadow: 0 8px 6px -6px #e8491d;*/
+}
+header a{
+    text-decoration: none;
+    color:#000000;
+}
+
+li{
+    border-radius:50px;
+    padding: 15px;
+    display:inline;
+    text-decoration: none;
+    
+}
+
+#left_nav{
+    float: left;
+}
+#right_nav{
+    float: right;
+}
+/* content mid*/
+/*for sign up and sign in page */
+.form_content{
+    width: 100%;
+    margin: 60px auto;
+    font: bold 14px sans-serif;
+    text-align: center;
+    
+}
+.register{
+    position: relative;
+    display: inline-block;
+    text-align: left;
+}
+.avatar{
+    width: 20%;
+    height: 20%;
+    margin-left: 40%;
+
+}
+.register .white_box{
+    width: 500px;
+    box-sizing: border-box;
+    background-color: #f3f3f3;
+    /*box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.5);*/
+    padding: 60px 80px;
+    margin-bottom: 35px;
+}
+.register .form_row{
+    margin-bottom: 60px;
+}
+.register h1{
+    
+    text-align: center;
+    font-size: 16px;
+    padding: 0 20px 15px;
+    /*border-bottom: 2px solid #cc0d0d;*/
+    margin: 20px;
+}
+.register label span{
+    padding-right: 10px;
+    max-width: 100px;
+}
+#mail{
+    margin-right:30px;
+}
+.register input{
+    color:  #5f5f5f;
+    width: 250px;
+    box-sizing: border-box;
+    box-shadow: 1px 2px 4px 0 rgba(0, 0, 0, 0.08);
+    padding: 12px 18px;
+    border: 1px solid #dbdbdb;
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+.register button{
+    border: none;
+    outline: none;
+    padding: 5px;
+    color:  #1c8adb;
+    margin:8px;
+    background: #2a87cab6;
+    color:#fff;
+    font-size:18px;
+    text-align: center;
+}
+.register button:hover{
+    font-size:18px;
+    cursor:pointer;
+    background: transparent;
+    color: #1c8adb;
+    padding :5px;
+    border: solid 1px #1c8adb;
+
+}
+/* More info links at the end of the forms reset pass and login direct*/
+.register .more_link{
+    float: right;
+    margin-top:-40px;
+    text-decoration: none;
+    padding: 10px 16px;
+    font-weight: normal;
+    color: #7b9d62;
+    background-color: #d6f0c3;    
+}
+.register .more_linkd{
+    float: left;
+    margin-top:15px;
+    padding: 10px 16px;
+    text-decoration: none;
+    font-weight: normal;
+    color: #7b9d62;
+    background-color: #d6f0c3;    
+}
+/* page footer  style */
+footer{
+    height: 50px; 
+    background-color: #7b9d62;
+    color:#ffffff;
+    font-size: 17px;
+}
+footer li{
+    float:left;
+    margin-top:0px;
+}
+
+footer p{
+    float: right;
+    margin-right :80px;
+}
