@@ -348,6 +348,42 @@ li{
 }
 /*end of all rides*/
 
+/*Rides page */
+/*create the grid */
+.grid{
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-column-gap: 3px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.grid div h5{
+    height: 20px;
+    float: right;
+    margin-top: -34px;
+    padding-right: 160px;
+    font-size: 18px;
+    color: #92a106;    
+}
+.grid div h4{
+    color:#0483FF;
+    font-size:18px;
+    height: 60px;
+}
+.grid div h3{
+    margin-top: 80px;
+    color:#f8a710e3;
+}
+/*content outline*/
+.outline{
+    border: solid 4px#f8a710e3;
+    border-radius: 20px;
+    margin-top: 20px;
+    padding:20px;
+    background: #ffffff;
+}
+
+/* end of ride details */
+
 /*add ride*/
 .add_ride{
     text-align: center;
