@@ -1,0 +1,87 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <meta name="author" content="Darius Ndubi">
+    <title>Join Us | Sign In </title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body class="gradient_1">
+    <header>
+        <nav>
+            <ul id="left_nav">
+                <a href="index.html">
+                    <li class="button_info">Home</li>
+                </a>
+                <a href="view_rides.html">
+                    <li class="button_info">Rides</li>
+                </a>
+                <a href="about.html">
+                    <li class="button_info">About</li>
+                </a>
+            </ul>
+
+            <ul id="right_nav">              
+                <a href="signup.html">
+                    <li class="button_user">Sign Up</li>
+                </a>
+                <!--<a href=""><li>Sign Out</li></a>-->
+            </ul>
+        </nav>
+    </header>
+    <section class="all_content">
+
+        <form class="form_content" action="" method="POST">
+            <div class="register">
+
+                <div class="white_box">
+                    <img src="./images/avatar.png" class="avatar">
+                    <h1>Welcome back!</h1>
+
+                    <div class="add_ride">
+
+                        <label>Email</label>
+                        <input type="email" name="email" required placeholder="Enter your email Address">
+                        
+                        <label>Password</label>
+                        <input type="password" name="password" required placeholder="Enter your password">    
+                    
+                    </div>
+                    <!--When form has been validated you can then be redirected to your dashboard-->
+                    <div id="button_page_center">
+                        <button type="submit"><a href="dashboard.html">Sign In</a></button>
+                        
+                        <a href="#" class="more_link">Forgot your password?</a>
+                        
+                    </div>
+                    <br>
+                    <br>
+                    <div id="button_page_center">
+                        <!--If not yet signed in-->
+                        <a href="signup.html" class="more_link">Sign In with Us?</a>
+                    </div>
+                </div> 
+                
+                
+
+            </div>
+
+        </form>
+
+    </section>
+
+    <!--page Footer-->
+    <footer>
+        <ul>
+            <li>
+                Contact US
+            </li>
+            <p>2018 &copy; Ride My Way</p>
+        </ul>
+    </footer>
+</body>
+
+</html>
