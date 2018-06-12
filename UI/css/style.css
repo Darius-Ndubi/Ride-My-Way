@@ -332,6 +332,21 @@ li{
     background-color: #d6f0c3;    
 }
 
+/*All rides */
+.h_list{
+    font-size: 32px;
+    color:#f78d02;
+    
+}
+.rides{
+    font-size:22px;
+    text-decoration: none;
+    line-height: 40px;
+}
+.rides:visited{
+    color: #7b9d62;
+}
+
 /*add ride*/
 .add_ride{
     text-align: center;
