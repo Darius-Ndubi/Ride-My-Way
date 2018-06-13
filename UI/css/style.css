@@ -170,6 +170,30 @@
 #button_page_center{
     text-align:center;
 }
+
+
+.button_create{
+    border: solid 2px #fff;
+    background:#00ad5f;
+    border-radius: 25px;
+    height: 40px;
+    width: 120px;
+    font-size: 17px;
+    color: #fff; 
+}
+.button_create a{
+    text-decoration: none;
+}
+.button_create:hover{
+    background:  #222222;
+    color: #808080;
+    cursor: pointer;
+}
+.button_create a:visited{
+    color: #ffffff;
+    background-color: #00ad5f;
+}
+
 /*end of buttons */
 
 
@@ -180,6 +204,8 @@ body{
     margin: 0;
     font-size:14px;
     font-family: Arial, Helvetica, sans-serif;
+    /*background-image: url(../images/transport.jpg);
+    background-size: cover;*/
     
 }
 
@@ -193,8 +219,7 @@ body{
 .all_content{
     width:70%;
     margin:auto;
-    overflow:hidden;
-    
+        
 }
 
 /* header */
@@ -204,7 +229,6 @@ header{
     width: 100%;
     min-height: 53px;
     background: linear-gradient(to left,#BF1B69, #7D1EC5);
-    font-family: Arial, Helvetica, sans-serif;
     font-size:18px;
     color: #f3f3f3;
     /*box-shadow: 0 8px 6px -6px #e8491d;*/
@@ -233,7 +257,7 @@ li{
 .form_content{
     width: 100%;
     margin: 60px auto;
-    font: bold 14px sans-serif;
+    font: bold 14px ;
     text-align: center;
     
 }
@@ -354,7 +378,6 @@ li{
     display: grid;
     grid-template-columns: 2fr 1fr;
     grid-column-gap: 3px;
-    font-family: Arial, Helvetica, sans-serif;
 }
 .grid div h5{
     height: 20px;
@@ -393,6 +416,93 @@ li{
     display:inline-block;
     margin: 8px 70px;
 }
+/*end of ride page*/
+
+/*Profile page */
+#prof_grid{
+    display: grid;
+    grid-template-columns: 1fr 2.5fr;
+    grid-column-gap: 50px;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+#prof_img{
+    max-width:250px;
+    max-height:250px;
+    border-radius: 50%;
+    border:dotted 8px #00ad5f;
+}
+
+#prof_grid h1 em, #prof_grid form label,#prof_grid form input{
+    font-size: 18px;
+    color:rgb(209, 209, 209);
+}
+#prof_grid form input{
+    color: #808080;
+    background-color: #222222;
+    padding:10px;
+    border:none;
+}
+
+/*ride numbers */
+#prof_grid div label{
+    color: #e9e3e3;
+    font-size: 16px;
+    padding: 10px;
+    margin:10px;
+}
+#prof_grid div span{
+    font-size: 16px;
+    border: solid 2px #00ad5f;
+    padding: 10px;
+    margin:10px;
+    border-radius: 75%;
+    background-color: #222222;
+    color:#808080;
+}
+
+/*table topic styling*/
+ .ride_tables{
+    height: 25px;
+    width:20%;
+    color:#fff;
+    background-color:#00ad5f;
+    text-align: center;
+    padding-top:8px;
+    
+}
+/*table styles */
+table{
+    box-sizing: border-box;
+    display: table;
+    border-spacing: 2px;
+    border-color:grey;
+    text-align: center;
+    border-radius:20px;
+    margin-bottom: 30px;
+}
+table tr th{
+    font-size: 15px;
+    color:#00ad5f;
+    line-height: 1.5;
+    padding-top:16px;
+    padding-bottom:16px;
+    margin: 15px;
+    text-transform: uppercase;
+    background-color: #393939;
+}
+table tr td{
+    font-size:15px;
+    color: #808080;
+    line-height: 1.5;
+    background-color: #222222;
+    padding-top:14px;
+    padding-bottom:14px;
+    padding-right: 10px;
+
+}
+/* profile page */
 
 /* page footer  style */
 footer{
@@ -410,3 +520,5 @@ footer p{
     float: right;
     margin-right :80px;
 }
+
+

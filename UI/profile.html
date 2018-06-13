@@ -1,0 +1,220 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initia-scale=1.0">
+    <meta name="author" content="Darius Ndubi">
+    <title>Account | Profile</title> </title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body class="gradient_1">
+    <header>
+        <nav>
+            <ul id="left_nav">
+                <a href="index.html">
+                    <li class="button_info">Home</li>
+                </a>
+                <a href="view_rides.html">
+                    <li class="button_info">Rides</li>
+                </a>
+            </ul>
+
+            <ul id="right_nav">
+                <a href="index.html">
+                    <li class="button_user">Sign Out</li>
+                </a>
+            </ul>
+        </nav>
+    </header>
+    <section class="all_content">
+        <div id="prof_grid">
+            <div>
+                <img src="images/avatar.png" alt="Profile_default" id="prof_img" >
+                <h1>
+                    <em>
+                        Yagami Light
+                    </em>
+                </h1>
+            
+                <form method="">
+                        <label>Email</label>
+                        <input type="email" name="email" placeholder="yagamilight@gmail.com">
+                   
+                    <button class="button_warm" type="submit">
+                        <a href="profile.html">Edit</a>
+                    </button>
+                
+                </form>
+                <br>
+               <hr>
+                
+                <p>
+                    <button type="submit" class="button_create">
+                        <a href="add_ride.html">Create Ride</a>
+                    </button>
+                </p>
+                <hr>
+                <br>
+                <br>
+                <div>
+                    <label>Rides created:</label>
+                    <span>3</span>
+                    <br>
+                </div>
+                <br>
+                <br>
+
+                <div >
+                    <label>Rides taken:</label>
+                    <span>2</span>
+                </div>
+            </div>
+            
+            <div id="prof_tables">
+            
+                <h4 class="ride_tables">Rides Created</h4>
+                <table>
+                    <tr>
+                        <th>car Reg No</th>
+                        <th>Title</th>
+                        <th>Date</th>
+                        <th>Distance</th>
+                        <th>Start</th>
+                        <th>Arrival</th>
+                        <th>Price</th>                        
+                    </tr>
+            
+                    <tr>
+                        <td>cvT57ZE</td>
+                        <td>The Underworld to Athens</td>
+                        <td>06-06-2018</td>
+                        <td>45</td>
+                        <td>07:00:Am</td>
+                        <td>10:00:AM</td>
+                        <td>$13.00</td>
+                        
+                    </tr>
+            
+                    <tr>
+                        <td>37BSDFB</td>
+                        <td>Thebes to Ithaca</td>
+                        <td>10-05-2018</td>
+                        <td>50</td>
+                        <td>07:00:Am</td>
+                        <td>10:00:AM</td>
+                        <td>$1.00</td>
+                           
+                    </tr>
+            
+                    <tr>
+                        <td>5YTRIN</td>
+                        <td>The Underworld to Athens</td>
+                        <td>06-06-2018</td>
+                        <td>45</td>
+                        <td>07:00:Am</td>
+                        <td>10:00:AM</td>
+                        <td>$5.00</td>
+                        
+                    </tr>
+                </table>
+                <!--Add post button-->
+                <h4 class="ride_tables">Rides Requests</h4>
+                <table>
+                    <tr>
+                        <th>car Reg No</th>
+                        <th>Title</th>
+                        <th>Date</th>
+                        <th>Requested by</th>
+                        <th>Action</th>
+                    </tr>
+                
+                    <tr>
+                        <td>cvT57ZE</td>
+                        <td>The Underworld to Athens</td>
+                        <td>06-05-2018</td>
+                        <td>Ben Kamau</td>
+                        <form method="POST">
+                            <td>
+                                <select>
+                                    <option value="accept">ACCEPT</option>
+                                    <option value="reject">REJECT</option>
+                                </select>
+                            </td>
+                            <td>
+                                <button class="button_create" type="submit">Send
+                                </button>
+                            </td>
+                        </form>
+                        
+                    </tr>
+                
+                    <tr>
+                        <td>37BSDFB</td>
+                        <td>Thebes to Ithaca</td>
+                        <td>10-05-2018</td>
+                        <td>Kitilit James</td>
+                        <form method="POST">
+                            <td>
+                                <select>
+                                    <option value="accept">ACCEPT</option>
+                                    <option value="reject">REJECT</option>
+                                </select>
+                            </td>
+                            <td>
+                                <button class="button_create" type="submit">Send
+                                </button>
+                            </td>
+                        </form>
+                    </tr>
+                </table>
+
+
+                <h4 class="ride_tables">Rides Taken</h4>
+                <table>
+                    <tr>
+                        <th>car Reg No</th>
+                        <th>Title</th>
+                        <th>Date</th>
+                        <th>Offerd by</th>
+                        <th>Price</th>
+                    </tr>
+                
+                    <tr>
+                        <td>4GSDKFS</td>
+                        <td>Mount Olympus to Troy</td>
+                        <td>06-05-2018</td>
+                        <td>Teru Mikami</td>
+                        <td>$12.00</td>
+                    </tr>
+                
+                    <tr>
+                        <td>2SANWKR</td>
+                        <td>Thebes to Ithaca</td>
+                        <td>09-05-2018</td>
+                        <td>Sakura Aoi</td>
+                        <td>$6.00</td>
+                    </tr>
+                </table>
+
+                
+                
+            </div>
+
+        </div>
+        
+    </section>
+
+    <!--page Footer-->
+    <footer>
+        <ul>
+            <li>
+                Contact US
+            </li>
+            <p>2018 &copy; Ride My Way</p>
+        </ul>
+    </footer>
+</body>
+
+</html>
