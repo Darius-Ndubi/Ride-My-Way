@@ -19,7 +19,10 @@
     margin-top: -40px;
     /*background-color: #0c0c0c7c;*/
     color:rgb(219, 215, 215);
+    /*
     background: linear-gradient(to right, #fcce047e, #0c0c0c7c);
+    */
+    background:#00000069;
 }
 
 /*Sliding shade */
@@ -126,22 +129,24 @@
 }
 /* button inside the page navbar */
 .button_info{
-    height: 70px;
+    border: 1px;
+    border-radius:5px;
+    margin-right:8px;
 
 }
 .button_info:hover{
     color:#fff;
-    box-sizing: border-box;
-    border-radius: 20px;
-    border: solid 2px white;
+    border: none;
     height: 40px;
-    width: 150px;    
+    width: 150px;
+    background: #c235a39f;   
 }
+
 .button_user:hover{
-    border-radius: 20px;
-    border: solid 2px #1c8adb;
-    color:#1c8adb;
-    background:#f8a710e3;
+    border: solid 1px #1c8adb;
+    border-radius: 5px;
+    color:#fff;
+    background: #e9d629bd; 
 }
 
 /*button book/reserve */
@@ -210,11 +215,17 @@ body{
 }
 
 .gradient_1{
-    /* if browser does not support gradient*/
+    background-image: linear-gradient(rgba(221, 195, 48, 0.356),rgba(191, 27, 106, 0.274)),url(../images/transport.jpg);
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    background-attachment: fixed;
+
+    /* if browser does not support gradient
     background: #dddddd;
-    /* else if browser supports gradients */
+    /* else if browser supports gradients 
     background:linear-gradient(to bottom left ,#BF1B69, #7D1EC5, rgb(30, 12, 44) );
-    background-repeat:no-repeat;
+    background-repeat:no-repeat;*/
 }
 .all_content{
     width:70%;
@@ -228,11 +239,15 @@ header{
     padding: 0;
     width: 100%;
     min-height: 53px;
+    background-color: #000000a8;
+    /*
     background: linear-gradient(to left,#BF1B69, #7D1EC5);
+    */
     font-size:18px;
     color: #f3f3f3;
     /*box-shadow: 0 8px 6px -6px #e8491d;*/
 }
+
 header a{
     text-decoration: none;
     color:#f3f3f3;
@@ -322,23 +337,28 @@ li{
     background-repeat:no-repeat;
 }
 
-.register button{
+.register button,register button a{
     border: none;
     outline: none;
     padding: 5px;
-    color:  #1c8adb;
     margin:8px;
     background: #2a87cab6;
     color:#fff;
     text-align: center;
+    text-decoration:none;
 }
-.register button:hover{
+.register button:hover,register button a:hover{
     cursor:pointer;
     background: transparent;
     color: #fff;
     padding :5px;
     border: solid 1px #1c8adb;
 
+}
+.register button a:visited{
+    color:#ffffff;
+    border: solid 1px #1c8adb;
+    text-decoration:none;
 }
 /* More info links at the end of the forms reset pass and login direct*/
 .register .more_link{
@@ -543,6 +563,9 @@ footer p{
     .button_primary{
         margin-bottom:-50px;
     }
+    .button_user{
+        margin:15px;  
+    }
     /* end of home page*/
     .all_content{
         width:100%;
@@ -558,26 +581,31 @@ footer p{
     /*sign up page */
     header{
         margin-top:18px;
-        font-size:12px;
+        min-height: 60px
     }
+
     li{
-        border-radius: 30px;
+        border-radius: 20px;
+    }
+    
+    header nav #left_nav, header nav #right_nav{
+        float:none;
+        font-size:15px;
+        
+        min-height:40%;
     }
     #right_nav{
         float:none;
-        margin-left:-20px;
+        margin-left:170px;
+        margin-top:-30px;
+        width:120px;
     }
-    header nav #left_nav{
+    #left_nav{
+        margin-top:-20px;
         margin-left: -30px;
-        padding-top: 40px;
-        min-height: 30px;
+        padding-top:20px;
     }
-    header nav #left_nav, header nav #right_nav{
-        float:none;
-        display:inline;
-        font-size:14px;
-    
-    }
+
     .form_content{
         width: 80%;
         font-size: 14px;
