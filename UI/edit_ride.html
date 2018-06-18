@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <meta name="author" content="Darius Ndubi">
-    <title>Create ride </title>
+    <title>Edit Ride </title>
     <link rel="stylesheet" href="./css/style.css">
 </head>
 
@@ -33,52 +33,52 @@
         </nav>
     </header>
     <section class="all_content">
-    
+
         <form class="form_content" action="" method="POST">
             <div class="register">
-                
+
                 <div class="white_box">
-                    <h1>Create a Ride</h1>
+                    <h1>Edit Ride</h1>
                     <div class="add_ride">
                         <label>Your car license number</label>
                         <input type="text" name="license_no" required placeholder="Your car license No.">
-                    
+
                         <label>Title</label>
                         <input type="text" name="title" required placeholder="eg Seaway to Mt. Troy">
-                        
-                        
+
+
                         <label>Ride date</label>
                         <input type="date" required name="ride_date">
-                        
-                    
+
+
                         <label>Distance (in Km):</label>
                         <input type="number" size="6" name="distance" required min="1" max="10000" value="0">
-                        
-                    
+
+
                         <label>Start Time</label>
                         <input type="time" required name="start_time">
-                        
-                    
+
+
                         <label>Arrival Time</label>
                         <input type="time" required name="arrival_time">
-                        
+
                         <label>Ride Price:</label>
                         <input type="number" size="6" name="distance" required min="1" max="" value="0">
 
                         <!--Send user email to database-->
                     </div>
                 </div>
-    
+
             </div>
             <div id="button_page_center">
                 <button class="button_success" type="submit">
-                    <a href="view_rides.html">Create Ride</a>
+                    <a href="view_rides.html">Edit Ride</a>
                 </button>
-            </div>    
+            </div>
         </form>
-    
+
     </section>
-    
+
     <!--page Footer-->
     <footer>
         <ul>
