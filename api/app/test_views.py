@@ -40,4 +40,4 @@ def test_add_ride():
     """
     result = app.test_client()
     response = result.post('api/v1/rides')
-    assert(response.status_code == 200)
+    assert(response.status_code == 201)
