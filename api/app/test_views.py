@@ -41,3 +41,16 @@ def test_add_ride():
     result = app.test_client()
     response = result.post('api/v1/rides')
     assert(response.status_code == 201)
+
+
+def test_ride_request():
+    """
+        A test on ride request functionality of the Api
+    """
+    result = app.test_client()
+    response = result.post('api/v1/rides/<int:id>/<string:request>')
+
+    if response == True:
+        assert(response.status_code == 201)
+    else:
+        assert(response.status_code == 404)

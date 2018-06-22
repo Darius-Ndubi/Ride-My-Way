@@ -1,8 +1,0 @@
-{
-  "test_views.py::BasicTestCase::test_index": true, 
-  "test_views.py::test_add_ride": true, 
-  "test_views.py::test_delete_ride": true, 
-  "test_views.py::test_get_all_rides": true, 
-  "test_views.py::test_signin": true, 
-  "test_views.py::test_signup": true
-}

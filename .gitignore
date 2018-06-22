@@ -1,2 +1,5 @@
 /api/venv
 *.pyc
+/api/.pytest_cache
+/api/.vscode
+.cache
