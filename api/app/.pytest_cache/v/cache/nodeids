@@ -1,3 +1,4 @@
 [
-  "test_views.py::test_view_rides"
+  "test_views.py::test_view_rides", 
+  "test_views.py::test_view_ride"
 ]

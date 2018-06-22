@@ -24,3 +24,11 @@ def test_view_rides():
     response=result.get('/api/v1/rides')
     assert(response.status_code==200)
 
+def test_view_ride():
+
+    """
+        A test on view_ride endpoint
+    """
+    result=app.test_client()
+    response=result.get('/api/v1/rides/1')
+    assert(response.status_code==200)
