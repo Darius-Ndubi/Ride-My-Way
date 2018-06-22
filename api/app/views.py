@@ -1,6 +1,6 @@
 from flask import Flask,jsonify,request
 from app import app
-from data import rides
+from data import rides,requested
 import json
 
 
@@ -77,3 +77,20 @@ def add_ride():
         #add the id and title to dictionary
         All_rides.update({ride_id: ride_title})
     return jsonify(All_rides)
+
+
+@app.route('/api/v1/rides/<int:id>/<string:requests>', methods=['GET', 'POST'])
+def ride_request(id, requests):
+    #show the fields to be responded
+    #join keyword should be used to request rides
+    if request.method == 'GET' and requests == 'join':
+        return jsonify({'You should fill': requested})
+    ride_request = {
+        'id': request.json['id'],
+        'Title':  request.json['Title'],
+        'Requester': request.json['Requester'],
+        'Ride_price': request.json['Ride_price']
+    }
+    if request.method == 'POST' and requests == 'join':
+        requested.append(ride_request)
+    return jsonify({'Created request': ride_request})
