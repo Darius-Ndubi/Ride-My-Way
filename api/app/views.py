@@ -44,3 +44,36 @@ def view_ride(id):
                     search = ride
                     # return the data in json format
                     return jsonify({'You searched': search})                               
+
+
+#create a ride
+@app.route('/api/v1/rides', methods=['POST'])
+def add_ride():
+    new_ride = {
+        'id': request.json['id'],
+        'car_license_no': request.json['car_license_no'],
+        'Title': request.json['Title'],
+        'Ride Date': request.json['Ride Date'],
+        'Distance': request.json['Distance'],
+        'Start_time': request.json['Start_time'],
+        'Arrival_time': request.json['Arrival_time'],
+        'Ride_price': request.json['Ride_price']
+    }
+
+    """Append to the list holdng all ride details"""
+    rides.append(new_ride)
+
+    #new dictionary to add id and title
+    All_rides = {}
+    #loop through the dictionary and find all ids and titles
+
+    for ride in rides:
+        for detail in ride:
+            if detail == 'id':
+                ride_id = ride[detail]
+            elif detail == 'Title':
+                ride_title = ride[detail]
+
+        #add the id and title to dictionary
+        All_rides.update({ride_id: ride_title})
+    return jsonify(All_rides)
