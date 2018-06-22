@@ -1,6 +1,7 @@
 from flask import Flask,jsonify,request
 from app import app
 from data import rides
+import json
 
 
 
@@ -22,4 +23,24 @@ def view_rides():
         #add the id and title to dictionary
         All_rides.update({ride_id: ride_title})
     return jsonify(All_rides)
+  
     
+#show details of a ride
+@app.route('/api/v1/rides/<int:id>', methods=['GET'])
+def view_ride(id):
+    #loop through the rides and find ride with the id
+    for ride in rides:
+
+        #loop through each key in a ride
+        for detail in ride:
+
+            #if key item is id
+            if detail == 'id':
+
+                #if key value == id entered
+                if ride[detail] == id:
+
+                    #store the ride details in variable
+                    search = ride
+                    # return the data in json format
+                    return jsonify({'You searched': search})                               
