@@ -94,3 +94,20 @@ def ride_request(id, requests):
     if request.method == 'POST' and requests == 'join':
         requested.append(ride_request)
     return jsonify({'Created request': ride_request})
+
+
+@app.route('/api/v1/rides/<int:id>', methods=['DELETE'])
+def delete_ride(id):
+    #loop through rides ad find ride with id given
+    for ride in rides:
+        for detail in ride:
+            if detail == 'id':
+                if ride[detail] == id:
+                    to_delete = ride
+                    #find the index of the ride
+                    ride_index = rides.index(to_delete)
+
+                    #delete the ride entry
+                    ride_deleted = rides.pop(ride_index)
+
+    return jsonify({'You deleted': ride_deleted})
