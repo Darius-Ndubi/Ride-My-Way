@@ -33,11 +33,21 @@ rides = [
 
     }
 ]
+
 requested = [
     {
         'id': '',
         'Title': '',
         'Requester': '',
         'Ride_price': ''
+    }
+]
+
+users = [
+    {
+        'id': '',
+        'email': '',
+        'username': '',
+        'password': ''
     }
 ]
