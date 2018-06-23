@@ -62,5 +62,14 @@ def test_delete_ride():
         -->'/api/v1/rides/<int:id>',methods=['DELETE']
     """
     result = app.test_client()
-    response = result.delete('api/v1/rides/<int:id>')
-    assert(response.status_code == 410)
+    response = result.delete('api/v1/rides/1')
+    assert(response.status_code == 200)
+
+def test_edit_ride():
+    """
+        A test to test user edit_ride endpoint
+    """
+    result=app.test_client()
+    response=result.put('api/v1/rides/edit/1')
+    assert(response.status_code==202)
+
