@@ -170,3 +170,37 @@ def signup():
     #add the new use to list of users
     users.append(new_user)
     return jsonify({'users': users})
+
+
+@app.route('/api/v1/signin', methods=['GET', 'POST'])
+def signin():
+    known_user = {
+        'email': '',
+        'password': ''
+    }
+    if request.method=='GET':
+        return jsonify({'Enter this':known_user})
+
+    elif request.method == 'POST':
+        known_user = {
+            'email': request.json['email'],
+            'password': request.json['password']
+        }
+        #loop through users to find user email and password
+        #using password for authentication illustration
+        for user in users:
+            for detail in user:
+                if detail=="password":
+                   
+                    for dit in known_user:
+                        if dit =="password":
+                            
+                            if user[detail]==known_user[dit]:
+                                found_password=known_user[dit]
+
+                                return jsonify({"Hello there": found_password})
+
+                           
+
+
+

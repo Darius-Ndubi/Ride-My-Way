@@ -84,3 +84,12 @@ def test_signup():
         assert(response.status_code == 201)
     else:
         assert(response.status_code == 404)
+
+
+def test_signin():
+    """
+        A test to test user sign in endpoint
+    """
+    result = app.test_client()
+    response = result.get('/api/v1/signin')
+    assert(response.status_code == 200)
