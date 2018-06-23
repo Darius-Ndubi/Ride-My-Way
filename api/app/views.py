@@ -1,6 +1,6 @@
 from flask import Flask,jsonify,request
 from app import app
-from data import rides,requested
+from data import rides,requested,users
 import json
 
 
@@ -154,4 +154,19 @@ def edit_ride(id):
             All_rides.update({ride_id: ride_title})
         return jsonify(All_rides)
 
-        
+
+@app.route('/api/v1/signup', methods=['GET', 'POST'])
+def signup():
+    if request.method == 'GET':
+        return jsonify({'fields to fill': users})
+    elif request.method == 'POST':
+        new_user = {
+            'id': request.json['id'],
+            'email': request.json['email'],
+            'username': request.json['username'],
+            'password': request.json['password']
+        }
+
+    #add the new use to list of users
+    users.append(new_user)
+    return jsonify({'users': users})

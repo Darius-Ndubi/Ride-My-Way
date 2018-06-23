@@ -73,3 +73,14 @@ def test_edit_ride():
     response=result.put('api/v1/rides/edit/1')
     assert(response.status_code==202)
 
+
+def test_signup():
+    """
+        A test to test the users sign up
+    """
+    result = app.test_client()
+    response = result.post('/api/v1/sigup')
+    if response == True:
+        assert(response.status_code == 201)
+    else:
+        assert(response.status_code == 404)
