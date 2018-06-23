@@ -11,15 +11,17 @@ import pytest
         d>ride_request
         e>delete ride
         e>edit article
-        f>delete article
-        g>ride_response
+        f>signup
+        g>gignin
 """
 
 def test_view_rides():
-    """In the list of rides stored
-    loop through all the rides and return there
-    titles and ids"""
-    #-----work--tomorrow---#
+    """
+        In the list of rides stored
+        loop through all the rides and return there
+        titles and ids
+    """
+
     result=app.test_client()
     response=result.get('/api/v1/rides')
     assert(response.status_code==200)
