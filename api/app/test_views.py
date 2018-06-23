@@ -8,8 +8,8 @@ import pytest
         a>view_rides
         b>view_ride
         c>add_ride
-        d>signup
-        e>signin
+        d>ride_request
+        e>delete ride
         e>edit article
         f>delete article
         g>ride_response
@@ -54,3 +54,13 @@ def test_ride_request():
         assert(response.status_code == 201)
     else:
         assert(response.status_code == 404)
+
+
+def test_delete_ride():
+    """
+        A test to test user delete ride endpoint
+        -->'/api/v1/rides/<int:id>',methods=['DELETE']
+    """
+    result = app.test_client()
+    response = result.delete('api/v1/rides/<int:id>')
+    assert(response.status_code == 410)
