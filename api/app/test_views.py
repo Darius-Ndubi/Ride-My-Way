@@ -41,8 +41,8 @@ def test_add_ride():
         A test on create ride end point to verify if it Posts data
     """
     result = app.test_client()
-    response = result.post('api/v1/rides')
-    assert(response.status_code == 201)
+    response = result.get('api/v1/rides')
+    assert(response.status_code == 200)
 
 
 def test_ride_request():
@@ -72,8 +72,12 @@ def test_edit_ride():
         A test to test user edit_ride endpoint
     """
     result=app.test_client()
-    response=result.put('api/v1/rides/edit/1')
-    assert(response.status_code==202)
+    response=result.put('api/v1/rides/edit/<int:id>')
+    if response==True:
+        assert(response.status_code==202)
+    else:
+        assert(response.status_code==404)
+
 
 
 def test_signup():
