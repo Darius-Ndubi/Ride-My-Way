@@ -10,7 +10,7 @@ install:
 
 script: 
   - cd api/app
-  - nosetests --with-coverage
+  - nosetests test_views.py --with-coverage
 
 after_success:
   - coveralls
