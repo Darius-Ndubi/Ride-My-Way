@@ -1,0 +1,4 @@
+{
+  "api/app/test_views.py::test_add_ride": true, 
+  "api/app/test_views.py::test_edit_ride": true
+}

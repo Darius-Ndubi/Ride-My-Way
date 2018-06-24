@@ -1,0 +1,10 @@
+[
+  "api/app/test_views.py::test_view_rides", 
+  "api/app/test_views.py::test_view_ride", 
+  "api/app/test_views.py::test_add_ride", 
+  "api/app/test_views.py::test_ride_request", 
+  "api/app/test_views.py::test_delete_ride", 
+  "api/app/test_views.py::test_edit_ride", 
+  "api/app/test_views.py::test_signup", 
+  "api/app/test_views.py::test_signin"
+]
