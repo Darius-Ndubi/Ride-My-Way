@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/Darius-Ndubi/Ride-My-Way.svg?branch=master)](https://travis-ci.org/Darius-Ndubi/Ride-My-Way)
+[![Build Status](https://travis-ci.org/Darius-Ndubi/Ride-My-Way.svg?branch=ch-code-to-pep-158578132)](https://travis-ci.org/Darius-Ndubi/Ride-My-Way)
 
 [![Coverage Status](https://coveralls.io/repos/github/Darius-Ndubi/Ride-My-Way/badge.svg?branch=master)](https://coveralls.io/github/Darius-Ndubi/Ride-My-Way?branch=master)
 
