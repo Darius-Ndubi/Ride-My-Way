@@ -10,19 +10,16 @@ import json
 def view_rides():
     #get all titles
     #new dictionary to add id and title
-    All_rides = {}
+    all_rides = {}
     #loop through the dictionary and find all ids and titles
 
     for ride in rides:
-        for detail in ride:
-            if detail == 'id':
-                ride_id = ride[detail]
-            elif detail == 'Title':
-                ride_title = ride[detail]
+        ride_id = ride.get('id')
+        ride_title = ride.get('title')
     
         #add the id and title to dictionary
-        All_rides.update({ride_id: ride_title})
-    return jsonify(All_rides)
+        all_rides.update({ride_id: ride_title})
+    return jsonify(all_rides)
   
     
 #show details of a ride
@@ -31,19 +28,11 @@ def view_ride(id):
     #loop through the rides and find ride with the id
     for ride in rides:
 
-        #loop through each key in a ride
-        for detail in ride:
-
-            #if key item is id
-            if detail == 'id':
-
-                #if key value == id entered
-                if ride[detail] == id:
-
-                    #store the ride details in variable
-                    search = ride
-                    # return the data in json format
-                    return jsonify({'You searched': search})                               
+        if ride.get('id') == id:
+            #store the ride details in variable
+            search = ride
+            # return the data in json format
+            return jsonify({'You searched': search})                               
 
 
 #create a ride
@@ -51,32 +40,29 @@ def view_ride(id):
 def add_ride():
     new_ride = {
         'id': request.json['id'],
-        'car_license_no': request.json['car_license_no'],
-        'Title': request.json['Title'],
-        'Ride Date': request.json['Ride Date'],
-        'Distance': request.json['Distance'],
-        'Start_time': request.json['Start_time'],
-        'Arrival_time': request.json['Arrival_time'],
-        'Ride_price': request.json['Ride_price']
+        'car_license': request.json['car_license'],
+        'title': request.json['title'],
+        'rde_date': request.json['ride_date'],
+        'distance': request.json['distance'],
+        'start_time': request.json['start_time'],
+        'arrival_time': request.json['arrival_time'],
+        'ride_price': request.json['ride_price']
     }
 
     """Append to the list holdng all ride details"""
     rides.append(new_ride)
 
     #new dictionary to add id and title
-    All_rides = {}
+    all_rides = {}
     #loop through the dictionary and find all ids and titles
 
     for ride in rides:
-        for detail in ride:
-            if detail == 'id':
-                ride_id = ride[detail]
-            elif detail == 'Title':
-                ride_title = ride[detail]
+        ride_id = ride.get('id')
+        ride_title = ride.get('title')
 
         #add the id and title to dictionary
-        All_rides.update({ride_id: ride_title})
-    return jsonify(All_rides)
+        all_rides.update({ride_id: ride_title})
+    return jsonify(all_rides)
 
 
 @app.route('/api/v1/rides/<int:id>/<string:requests>', methods=['GET', 'POST'])
@@ -87,9 +73,9 @@ def ride_request(id, requests):
         return jsonify({'You should fill': requested})
     ride_request = {
         'id': request.json['id'],
-        'Title':  request.json['Title'],
-        'Requester': request.json['Requester'],
-        'Ride_price': request.json['Ride_price']
+        'title':  request.json['title'],
+        'requester': request.json['requester'],
+        'ride_price': request.json['R=ride_price']
     }
     if request.method == 'POST' and requests == 'join':
         requested.append(ride_request)
@@ -100,15 +86,13 @@ def ride_request(id, requests):
 def delete_ride(id):
     #loop through rides ad find ride with id given
     for ride in rides:
-        for detail in ride:
-            if detail == 'id':
-                if ride[detail] == id:
-                    to_delete = ride
-                    #find the index of the ride
-                    ride_index = rides.index(to_delete)
+        if ride.get('id')==id:
+            to_delete = ride
+            #find the index of the ride
+            ride_index = rides.index(to_delete)
 
-                    #delete the ride entry
-                    ride_deleted = rides.pop(ride_index)
+            #delete the ride entry
+            ride_deleted = rides.pop(ride_index)
 
     return jsonify({'You deleted': ride_deleted})
 
@@ -119,40 +103,36 @@ def edit_ride(id):
     """Loop through all rides and find ride with entered id"""
     if request.method=='GET':
         for ride in rides:
-            for detail in ride:
-                if ride[detail]==id:
-                    to_edit=ride
-                    return jsonify({"You want to edit":to_edit})
+            if ride.get('id') == id:
+                to_edit=ride
+                return jsonify({"You want to edit":to_edit})
 
     elif request.method=='PUT':
         edit_details = {
             'id': request.json['id'],
-            'car_license_no': request.json['car_license_no'],
-            'Title': request.json['Title'],
-            'Ride Date': request.json['Ride Date'],
-            'Distance': request.json['Distance'],
-            'Start_time': request.json['Start_time'],
-            'Arrival_time': request.json['Arrival_time'],
-            'Ride_price': request.json['Ride_price']
+            'car_license_': request.json['car_license'],
+            'title': request.json['title'],
+            'ride_date': request.json['ride_date'],
+            'distance': request.json['distance'],
+            'start_time': request.json['start_time'],
+            'arrival_time': request.json['arrival_time'],
+            'ride_price': request.json['ride_price']
         }
 
         """Append to the list holdng all ride details"""
         rides.append(edit_details)
 
         #new dictionary to add id and title
-        All_rides = {}
+        all_rides = {}
         #loop through the dictionary and find all ids and titles
 
         for ride in rides:
-            for detail in ride:
-                if detail == 'id':
-                    ride_id = ride[detail]
-                elif detail == 'Title':
-                    ride_title = ride[detail]
+            ride_id = ride.get('id')
+            ride_title = ride.get('title')
 
             #add the id and title to dictionary
-            All_rides.update({ride_id: ride_title})
-        return jsonify(All_rides)
+            all_rides.update({ride_id: ride_title})
+        return jsonify(all_rides)
 
 
 @app.route('/api/v1/signup', methods=['GET', 'POST'])
