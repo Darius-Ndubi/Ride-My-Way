@@ -51,3 +51,48 @@ users = [
         'password': ''
     }
 ]
+
+mock_ride = {
+    'id': 4,
+    'car_license': 'KCG 001Y',
+    'title': 'Colchins to Athens',
+    'ride_date': '26-06-2018',
+    'distance': '100',
+    'start_time': '0500',
+    'arrival_time': '1000',
+    'ride_price': '150'
+
+}
+
+mock_request={
+        'id': 2,
+        'title': 'Troy to Ithaca',
+        'requester': 'Suzuki Kakashi',
+        'ride_price': '800'
+    }
+mock_user={
+    'id': 1,
+    'email': 'ndubidarius@gmail.com',
+    'username': 'dario',
+    'password': 'masaysay'
+
+}
+mock_known_user={
+    'email': 'ndubidarius@gmail.com',
+    'password': 'masaysay'
+}
+
+mock_edited_ride={
+    'id': 4,
+    'car_license': 'KCG 001Y',
+    'title': 'Thebes to Ithaca',
+    'ride_date': '26-06-2018',
+    'distance': '100',
+    'start_time': '0500',
+    'arrival_time': '1000',
+    'ride_price': '150'
+
+}
+
+
+

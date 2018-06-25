@@ -42,7 +42,7 @@ def add_ride():
         'id': request.json['id'],
         'car_license': request.json['car_license'],
         'title': request.json['title'],
-        'rde_date': request.json['ride_date'],
+        'ride_date': request.json['ride_date'],
         'distance': request.json['distance'],
         'start_time': request.json['start_time'],
         'arrival_time': request.json['arrival_time'],
@@ -75,7 +75,7 @@ def ride_request(id, requests):
         'id': request.json['id'],
         'title':  request.json['title'],
         'requester': request.json['requester'],
-        'ride_price': request.json['R=ride_price']
+        'ride_price': request.json['ride_price']
     }
     if request.method == 'POST' and requests == 'join':
         requested.append(ride_request)
