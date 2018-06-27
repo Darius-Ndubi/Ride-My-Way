@@ -11,8 +11,8 @@ def view_rides():
     #get all titles
     #new dictionary to add id and title
     all_rides = {}
-    #loop through the dictionary and find all ids and titles
-
+    #loop through the dictionary and get the rides
+    #using .get method to pick out the required fields per ride
     for ride in rides:
         ride_id = ride.get('id')
         ride_title = ride.get('title')
@@ -27,7 +27,8 @@ def view_rides():
 def view_ride(id):
     #loop through the rides and find ride with the id
     for ride in rides:
-
+        #loop through the dictionary and get the rides
+        #using .get method to pick out the ride id
         if ride.get('id') == id:
             #store the ride details in variable
             search = ride
@@ -54,7 +55,8 @@ def add_ride():
 
     #new dictionary to add id and title
     all_rides = {}
-    #loop through the dictionary and find all ids and titles
+    #loop through the dictionary and get the rides
+    #using .get method to pick out the required fields per ride
 
     for ride in rides:
         ride_id = ride.get('id')
@@ -84,7 +86,8 @@ def ride_request(id, requests):
 
 @app.route('/api/v1/rides/<int:id>', methods=['DELETE'])
 def delete_ride(id):
-    #loop through rides ad find ride with id given
+    #loop through the dictionary and get the rides
+    #using .get method to pick out the ride with id entered
     for ride in rides:
         if ride.get('id')==id:
             to_delete = ride
@@ -100,7 +103,8 @@ def delete_ride(id):
 
 @app.route('/api/v1/rides/edit/<int:id>',methods=['GET','PUT'])
 def edit_ride(id):
-    """Loop through all rides and find ride with entered id"""
+    #loop through the dictionary and get the rides
+    #using .get method to pick out the ride required to be requested
     if request.method=='GET':
         for ride in rides:
             if ride.get('id') == id:
