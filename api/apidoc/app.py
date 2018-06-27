@@ -1,23 +1,22 @@
-from flask import Flask,jsonify,request
-from data import rides,requested,users
+from flask import Flask, jsonify, request
+from data import rides, requested, users
+from models import Users,UsersSchema
 import json
-from flask_restplus import Api, Resource, fields,reqparse
-
-
+from werkzeug.exceptions import BadRequest
+from flask_restplus import Api, Resource, fields, reqparse
 
 #Create an instace of flask
-app=Flask(__name__)
+app = Flask(__name__)
 api = Api(app)
-
-
 
 
 """Add a secret key for the app"""
 app.secret_key = '\xaa\x98\xfb\xf7\xcb\xce\xd3\xdf\x96'
 
+
 #input fields
-ride_fields=api.model('Ride_data',{
-    'id':fields.Integer,
+ride_fields = api.model('Ride_data', {
+    'id': fields.Integer,
     'car_license': fields.String,
     'title': fields.String,
     'ride_date': fields.String,
@@ -25,24 +24,24 @@ ride_fields=api.model('Ride_data',{
     'start_time': fields.String,
     'arrival_time': fields.String,
     'ride_price': fields.Integer,
-    'ride_requester':fields.String
+    'ride_requester': fields.String
 
 })
 
-user_data=api.model('User SignUp',{
-    'email':fields.String,
-    'username':fields.String,
-    'password':fields.String
+user_data = api.model('User SignUp', {
+    'id':fields.Integer,
+    'username': fields.String,
+    'password': fields.String,
+    'email': fields.String
 })
 
-user_login=api.model("User SignIN",{
-    'email':fields.String,
-    'password':fields.String
+user_login = api.model("User SignIN", {
+    'email': fields.String,
+    'password': fields.String
 })
 
-class Get_rides(object):
 
-    all_rides={}
+class Manage_rides(object):
 
     def __init__(self):
         pass
@@ -50,175 +49,131 @@ class Get_rides(object):
     def get_list(self):
         return rides
     
-    def get_specific_ride(self,id):
-        self.id=id
+    def get_specific_ride(self, id):
+        self.id = id
 
-        for self.ride in rides:
-            #loop through the dictionary and get the rides
-            #using .get method to pick out the ride id
-            if self.ride.get('id') == self.id:
-                #store the ride details in variable
-                self.search = self.ride
-                # return the data in json format
-                return self.search
+        #a list to store all ride ids
+        self.l = []
+        for self.detail in rides:
 
-            
+            #take all the id values and add them to thelist
+            self.l.append(self.detail.get('id'))
 
-R=Get_rides()
+            #for a ride to be displayed it should be in the list above
+            if self.id in self.l:
+                for self.ride in rides:
+                    #loop through the dictionary and get the rides
+                    #using .get method to pick out the ride id
+                    if self.ride.get('id') == self.id:
+                        #store the ride details in variable
+                        self.search = self.ride
+                        return self.search
+            else:
+                return ("Error"), 404
+    
+    def list_id(self):
+        self.l=[]
+        for self.detail in rides:
 
+            #take all the id values and add them to thelist
+            self.l.append(self.detail.get('id'))
+        return self.l
+
+    def get_user_dits(self):
+
+        self.parser = reqparse.RequestParser()
+        self.parser.add_argument('username', required=True,
+                            help="Username cannot be blank!")
+        self.parser.add_argument('password', required=True,
+                            help="Password cannot be blank!")
+        self.parser.add_argument('email', required=True,
+                            help="Email cannot be blank!")
+
+        self.args = self.parser.parse_args()
+        
+
+        return self.args
+
+    def get_ride_data(self):
+        pass
+
+
+
+R = Manage_rides()
 
 @api.route('/allrides')
 class View_rides(Resource):
     def get(self):
         return R.get_list()
-    
-    @api.marshal_with(ride_fields)
-    @api.expect(ride_fields)
-    def post(self):
-        parser = reqparse.RequestParser()
-        parser.add_argument('ride_date', required=True,
-                            help="Date cannot be blank!")
-        parser.add_argument('distance', required=True,
-                            help="Distance cannot be blank!")
-        parser.add_argument('title', required=True,
-                            help="Title cannot be blank!")
-        parser.add_argument('id', required=True,
-                            help="ID cannot be blank!")
-        parser.add_argument('arrival_time', required=True,
-                            help="arrival_time cannot be blank!")
-        parser.add_argument('ride_price', required=True,
-                            help="ride_price cannot be blank!")
-        parser.add_argument('car_license', required=True,
-                            help="car_license cannot be blank!")
-        parser.add_argument('ride_requester', required=True,
-                            help="ride_request cannot be blank!")
-        
-        args = parser.parse_args()
-        rides.append(args)
-        #print args['ride_date']
-        return rides
-        
 
 #show details of a ride
 @api.route('/oneride/<int:id>')
 class View_ride(Resource):
-    def get(self,id):
+    def get(self, id):
         #loop through the rides and find ride with the id
-        return R.get_specific_ride(id)
+        print R.get_specific_ride(id)
 
-#create a ride
-@api.route('/rides')
-class Add_ride(Resource):
-    @api.marshal_with(ride_fields)
-    @api.expect(ride_fields)
-    def post(self):
-        parser = reqparse.RequestParser()
-        parser.add_argument('ride_date', required=True,
-                            help="Date cannot be blank!")
-        parser.add_argument('distance', required=True,
-                        help="Distance cannot be blank!")
-        parser.add_argument('title', required=True,
-                            help="Title cannot be blank!")
-        parser.add_argument('id', required=True,
-                            help="ID cannot be blank!")
-        parser.add_argument('arrival_time', required=True,
-                            help="arrival_time cannot be blank!")
-        parser.add_argument('ride_price', required=True,
-                            help="ride_price cannot be blank!")
-        parser.add_argument('car_license', required=True,
-                            help="car_license cannot be blank!")
-
-        args = parser.parse_args()
-        rides.append(args)
-        #print args['ride_date']
-        return rides
-
-       
 #Ride deletion
 @api.route('/rides/<int:id>')
 class Delete_ride(Resource):
-    def delete(self,id):
-        self.id=id 
-
-        for self.ride in rides:
-            
-            if self.ride.get('id') == self.id:
-                self.to_delete = self.ride
-                print self.to_delete
-                #find the index of the ride
-                self.ride_index = rides.index(self.to_delete)
-
-                #delete the ride entry
-                rides.pop(self.ride_index)
-
-            return 'Success'
-
-@api.route('/rides/edit/<int:id>')
-class Edit_ride(Resource):
-    @api.marshal_with(ride_fields)
-    @api.expect(ride_fields)
-    def put(self,id):        
-        parser = reqparse.RequestParser()
-        parser.add_argument('ride_date', required=True,
-                            help="Date cannot be blank!")
-        parser.add_argument('distance', required=True,
-                            help="Distance cannot be blank!")
-        parser.add_argument('title', required=True,
-                            help="Title cannot be blank!")
-        parser.add_argument('id', required=True,
-                            help="ID cannot be blank!")
-        parser.add_argument('arrival_time', required=True,
-                            help="arrival_time cannot be blank!")
-        parser.add_argument('ride_price', required=True,
-                            help="ride_price cannot be blank!")
-        parser.add_argument('car_license', required=True,
-                            help="car_license cannot be blank!")
-        parser.add_argument('ride_requester', required=True,
-                            help="car_license cannot be blank!")
-
-        args = parser.parse_args()
+    def delete(self, id):
         
-        for self.ride in rides:
-            if self.ride.get('id')==args['id']:
-                rides.append(args)
-                return rides         
+        self.id = id
+        #a list to store all ride ids
+        self.l = []
+        for self.detail in rides:
+
+            #take all the id values and add them to thelist
+            self.l.append(self.detail.get('id'))
+
+        # Before deletion check if id is in the list
+        if self.id in self.l:
+            #if it is found save it to avariable for use
+            self.to_delete = self.id
+            #find teh ride with maching id from the rides list
+            for self.ride in rides:
+                if self.ride.get('id') == self.to_delete:
+                    self.ride_index = rides.index(self.ride)
+                    rides.pop(self.ride_index)
+                    return ("Success"), 200
+
+        #if id is not in list, Error out
+        #error in restplus
+        else:
+            #return jsonify({"404": {"Error": "Ride id not found"}})
+            e = BadRequest('Unfound ID')
+            e.data = {'Reason': 'Ride is not found since its been already deleted or does not exist'}
+            raise e
+
 
 @api.route('/signup')
 class Signup(Resource):
-    @api.marshal_with(user_data)
+    #@api.marshal_with(user_data)
     @api.expect(user_data)
     def post(self):
+        #self.email=request.json['email']
 
-        parser = reqparse.RequestParser()
-        parser.add_argument('username', required=True,
-                            help="Username cannot be blank!")
-        parser.add_argument('password', required=True,
-                            help="Password cannot be blank!")
-        parser.add_argument('email', required=True,
-                            help="Email cannot be blank!")
-        
-        args = parser.parse_args()
-        
-        users.append(args)
+
+        self.args=R.get_user_dits()       
+        em=self.args.get('email')
+        print em
+        """# without schema
+        users.append(self.args)"""
+       
+        user = Users(id =self.args.get('id'), email=self.args.get(
+            'email'),password= self.args.get('password'), username=self.args.get('username'))
+
+        schema=UsersSchema()
+        result=schema.dumps(user)
+        print result
+        users.append(result)
+
         return users
-        
+
+
 @api.route('/signin')
 class Signin(Resource):
-    @api.marshal_with(user_login)
-    @api.expect(user_login)
-    def post(self):
-        
-        parser = reqparse.RequestParser()
-        parser.add_argument('password', required=True,
-                            help="password cannot be blank!")
-        parser.add_argument('email', required=True,
-                            help="email cannot be blank!")
-        args = parser.parse_args()
-        
-        for self.user in users:
-            if self.user.get('password')==args['password']:
-                return args
-
+    pass
 
 if __name__=='__main__':
     app.run(debug=True)
