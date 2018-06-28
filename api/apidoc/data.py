@@ -1,6 +1,6 @@
 rides = [
     {
-        'id': 1,
+        'r_id': 1,
         'car_license': 'KAC 345T',
         'title': 'Troy to Sparta',
         'ride_date': '06-06-2018',
@@ -8,10 +8,10 @@ rides = [
         'start_time': '0700',
         'arrival_time': '1700',
         'ride_price': '1500'
-
+        #'requests': ['Jinbei', 'Robin', 'Chopper']
     },
     {
-        'id': 2,
+        'r_id': 2,
         'car_license': 'KXY 677Y',
         'title': 'Troy to Ithaca',
         'ride_date':'06-05-2018',
@@ -19,10 +19,11 @@ rides = [
         'start_time': '1000',
         'arrival_time': '1300',
         'ride_price': '800'
+        #'requests': ['Luffy', 'Nami', 'Zoro']
 
     },
     {
-        'id': 3,
+        'r_id': 3,
         'car_license':'XGK 001Y',
         'title': 'The Under world to Athens',
         'ride_date': '06-05-2018',
@@ -30,22 +31,24 @@ rides = [
         'start_time': '0700',
         'arrival_time': '1500',
         'ride_price': '1000'
+        #requests':['Sanji','Brook','Franky']
 
     }
 ]
 
 requested = [
     {
-        'id': '',
+        'req_id': '',
         'title': '',
-        'requester': '',
-        'ride_price': ''
+        'car_reg':'',
+        'dated':'',
+        'ride_price': '',
+        'requester_name':''
     }
 ]
 
 users = [
     {
-        'id': '',
         'email': '',
         'username': '',
         'password': ''
