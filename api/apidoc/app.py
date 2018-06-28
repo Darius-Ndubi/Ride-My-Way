@@ -38,8 +38,14 @@ user_login = api.model("User SignIN", {
     'password': fields.String
 })
 
-user_name_request=api.model("Your username",{
+user_ride_request=api.model("Your ride request",{
+    'req_id':fields.Integer,
+    'title': fields.String,
+    'car_reg': fields.String,
+    'dated': fields.String,
+    'ride_price': fields.Integer,
     'requester_name':fields.String
+    
 })
 
 
@@ -76,14 +82,6 @@ class Manage_rides(object):
             else:
                 return ("Error"), 404
     
-    def list_id(self):
-        self.l=[]
-        for self.detail in rides:
-
-            #take all the id values and add them to thelist
-            self.l.append(self.detail.get('id'))
-        return self.l
-
     def get_user_dits(self):
 
         self.parser = reqparse.RequestParser()
@@ -110,7 +108,6 @@ class Manage_rides(object):
 
         return self.args
 
-
     def get_ride_fields(self):
         self.parser = reqparse.RequestParser()
         self.parser.add_argument('ride_date', required=True,
@@ -136,8 +133,19 @@ class Manage_rides(object):
         
     def get_request_field(self):
         self.parser = reqparse.RequestParser()
+
+        self.parser.add_argument('req_id', required=True,
+                                 help=" cannot be blank!")
+        self.parser.add_argument('title', required=True,
+                                 help="title cannot be blank!")
+        self.parser.add_argument('car_reg', required=True,
+                                 help="Car registration cannot be blank!")
+        self.parser.add_argument('dated', required=True,
+                                 help="Date cannot be blank!")
+        self.parser.add_argument('ride_price', required=True,
+                                 help="Your name cannot be blank!")
         self.parser.add_argument('requester_name', required=True,
-                                 help="Yur name cannot be blank!")
+                                 help="Your name cannot be blank!")
         self.args = self.parser.parse_args()
 
         return self.args
@@ -159,7 +167,7 @@ class View_ride(Resource):
         return R.get_specific_ride(id)
 
 #Ride deletion
-@api.route('/rides/<int:id>')
+@api.route('/user/rides/<int:id>')
 class Delete_ride(Resource):
     def delete(self, id):
         
@@ -190,7 +198,7 @@ class Delete_ride(Resource):
             raise e
 
 
-@api.route('/signup')
+@api.route('/user/signup')
 class Signup(Resource):
     @api.marshal_with(user_data)
     @api.expect(user_data)
@@ -206,7 +214,7 @@ class Signup(Resource):
         return  users
 
 #sigin
-@api.route('/signin')
+@api.route('/user/signin')
 class Signin(Resource):
     @api.marshal_with(user_login)
     @api.expect(user_login)
@@ -215,9 +223,12 @@ class Signin(Resource):
 
         for self.i in users:
             if str(self.i.__getitem__('password')) == str(self.args['password']):
-                
                 return self.args
-       
+            
+        
+        e = BadRequest('Wrong password')
+        e.data = {'Reason': 'Password is wrong or you are not registered'}
+        raise e
 
 #create a ride
 @api.route('/rides')
@@ -234,7 +245,9 @@ class Add_ride(Resource):
         self.args['r_id'] = self.real_id
 
         
-        
+        #user should be able to add a ride not this way
+        #Ride should not add itself
+        #Use a 
         self.new_ride = Rides(r_id=self.args['r_id'],
                             car_license=self.args['car_license'],
                             title=self.args['title'],
@@ -251,6 +264,7 @@ class Add_ride(Resource):
 
         return rides
 
+#user should not add them selves in
 
 @api.route('/rides/edit/<int:id>')
 class Edit_ride(Resource):
@@ -263,62 +277,87 @@ class Edit_ride(Resource):
         
         #check id any If
         for self.ride in rides:
-            try:
-                if self.ride.__getitem__('r_id')==self.id:
-                    self.args['r_id']=self.id
-                    
-                    #accept data from user
-                    self.edited_ride = Rides(r_id=self.args['r_id'],
-                                          car_license=self.args['car_license'],
-                                          title=self.args['title'],
-                                          ride_date=self.args['ride_date'],
-                                          distance=self.args['distance'],
-                                          start_time=self.args['start_time'],
-                                          arrival_time=self.args['arrival_time'],
-                                          ride_price=self.args['ride_price'])
-
-                    #save the data
-                    self.edited_ride.addRide(self.edited_ride)
-
-                    return rides
-                
-            except :
-                e=BadRequest("Ride not found")
-                e.data={"Reason": 'Ride is has not been created or has been deleted'}
-                raise e
             
+            if self.ride.__getitem__('r_id')==self.id:
+                self.args['r_id']=self.id
+                
+                #accept data from user
+                self.edited_ride = Rides(r_id=self.args['r_id'],
+                                        car_license=self.args['car_license'],
+                                        title=self.args['title'],
+                                        ride_date=self.args['ride_date'],
+                                        distance=self.args['distance'],
+                                        start_time=self.args['start_time'],
+                                        arrival_time=self.args['arrival_time'],
+                                        ride_price=self.args['ride_price'])
+                
+                self.id = id
+                #a list to store all ride ids
+                self.l = []
+                for self.detail in rides:
+                    #take all the id values and add them to thelist
+                    self.l.append(self.detail.__getitem__('r_id'))
 
-@api.route('/rides/request/<int:id>')
+                # Before deletion check if id is in the list
+                if self.id in self.l:
+                    #find the ride with maching id from the rides list
+                    for self.ride in rides:
+                        if self.ride.__getitem__('r_id') == self.id:
+                            self.ride_index = rides.index(self.ride)
+
+                            rides.pop(self.ride_index)
+                        
+
+                #save the data
+                self.edited_ride.addRide(self.edited_ride)
+
+                return rides
+                
+
+@api.route('/user/rides/request/<int:id>')
 class Requset_ride(Resource):
-    @api.marshal_with(user_name_request)
-    @api.expect(user_name_request)
-    def post(self,id):
-        self.id=id 
-        self.l=[]
+    @api.marshal_with(user_ride_request)
+    @api.expect(user_ride_request)
+    def post(self, id):
+        self.args = R.get_request_field()
+        self.id = id
+        self.l = []
+        
         for self.detail in rides:
-            #take all the id values and add them to thelist
+            #take all the id values and append them to thelist
             self.l.append(self.detail.__getitem__('r_id'))
-        # Before requesting  check if id is in the list
+            # Before requesting  check if id is in the list
         if self.id in self.l:
             #find the ride with maching id from the rides list
             for self.ride in rides:
                 if self.ride.__getitem__('r_id') == self.id:
+
                     #get the required fields to fill request data
-                    self.ride_title=self.ride.__getitem__('title')
-                    self.car_reg=self.ride.__getitem__('car_license')
-                    self.dated=self.ride.__getitem__('ride_date')
-                    self.ride_price=self.ride.__getitem__('ride_price')
+                    self.ride_title = self.ride.__getitem__('title')
 
-        self.args=R.get_request_field()
+                    self.car_reg = self.ride.__getitem__('car_license')
 
-        self.ride_req = RequestedRides(req_id=self.id,title=self.ride_title,car_reg=self.car_reg,
-                    dated=self.dated,ride_price=self.ride_price,requester_name=self.args['requester_name'])
+                    self.dated = self.ride.__getitem__('ride_date')
+                    self.ride_price = self.ride.__getitem__('ride_price')
         
+        self.args = R.get_request_field()
+
+        self.args['req_id']=self.id
+        
+        self.args['title'] = self.ride_title
+        
+        self.args['car_reg'] = self.car_reg
+    
+        self.args['dated'] = self.dated
+        self.args['ride_price'] = self.ride_price
+
+        self.ride_req = RequestedRides(req_id=self.args['req_id'], title=self.args['title'], car_reg=self.args['car_reg'],
+                                       dated=self.args['dated'], ride_price=self.args['ride_price'],
+                                       requester_name=self.args['requester_name'])
+
         self.ride_req.addRequest(self.ride_req)
 
         return requested
-
-
 
 if __name__=='__main__':
     app.run(debug=True)

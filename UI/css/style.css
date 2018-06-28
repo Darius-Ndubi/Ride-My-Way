@@ -1,5 +1,5 @@
 /* home page styling */
-#catcher{ 
+#catcher{
 
     position:relative;
     width: 100%;
@@ -11,7 +11,7 @@
     width: 100%;
     height: auto;
     padding:0;
-    margin:0;    
+    margin:0;
 }
 
 .home_menu{
@@ -51,7 +51,7 @@
     text-align: center;
     font-weight: 100;
     font-family: Arial, Helvetica, sans-serif;
-    
+
 }
 .home_menu li{
     margin-top: 30px;
@@ -88,7 +88,7 @@
     height: 30px;
     width: 90px;
     font-size: 17px;
-    color: #000;    
+    color: #000;
 }
 .button_primary a{
     text-decoration: none;
@@ -144,14 +144,14 @@
     border: none;
     height: 40px;
     width: 150px;
-    background: #c235a39f;   
+    background: #c235a39f;
 }
 
 .button_user:hover{
     border: solid 1px #1c8adb;
     border-radius: 5px;
     color:#fff;
-    background: #e9d629bd; 
+    background: #e9d629bd;
 }
 
 /*button book/reserve */
@@ -162,7 +162,7 @@
     padding:10px;
     height: 40px;
     font-size: 17px;
-    color: #fff; 
+    color: #fff;
     text-decoration:none;
 }
 .button_success a{
@@ -209,14 +209,14 @@
 
 /*all pages content styling */
 body{
-    
+
     padding: 0;
     margin: 0;
     font-size:14px;
     font-family: Arial, Helvetica, sans-serif;
     /*background-image: url(../images/transport.jpg);
     background-size: cover;*/
-    
+
 }
 
 .gradient_1{
@@ -228,14 +228,14 @@ body{
 
     /* if browser does not support gradient
     background: #dddddd;
-    /* else if browser supports gradients 
+    /* else if browser supports gradients
     background:linear-gradient(to bottom left ,#BF1B69, #7D1EC5, rgb(30, 12, 44) );
     background-repeat:no-repeat;*/
 }
 .all_content{
     width:70%;
     margin:auto;
-        
+
 }
 
 /* header */
@@ -279,7 +279,7 @@ li{
     margin: 60px auto;
     font: bold 14px ;
     text-align: center;
-    
+
 }
 .register{
     width:100%;
@@ -305,7 +305,7 @@ li{
     margin: 35px auto;
 }
 
-.register h1{   
+.register h1{
     text-align: center;
     font-size: 18px;
     padding: 0 20px 15px;
@@ -322,7 +322,7 @@ li{
     padding: 12px 18px;
     border: 1px solid #dbdbdb;
     margin-bottom: 15px;
-    
+
 }
 /* center place holder text in the forms */
 ::-webkit-input-placeholder {
@@ -365,8 +365,8 @@ li{
     padding: 10px 16px;
     font-weight: normal;
     color: #fff;
-    background:transparent; 
-    font-size:14px;  
+    background:transparent;
+    font-size:14px;
 }
 .more_linkd,.more_linkred{
     border: none;
@@ -386,18 +386,19 @@ li{
 /*All rides */
 .h_list{
     font-size: 32px;
-    color:#f78d02;
-    
+    color:#ffbe68;
+
 }
 .rides{
-    font-size:22px;
+    font-size:24px;
     text-decoration: none;
     line-height: 40px;
+    color:rgb(255, 255, 255);
 
 }
 
 .rides:visited{
-    color: #7b9d62;
+    color: rgb(0, 0, 0);
 }
 /*end of all rides*/
 
@@ -415,7 +416,7 @@ li{
     margin-top: -34px;
     padding-right: 160px;
     font-size: 18px;
-    color: #92a106;    
+    color: #92a106;
 }
 .grid div h4{
     font-size:16px;
@@ -507,7 +508,7 @@ li{
     background-color:#00ad5f;
     text-align: center;
     padding-top:8px;
-    
+
 }
 /*table styles */
 table{
@@ -541,13 +542,15 @@ table tr td{
 
 /* page footer  style */
 footer{
-    position: absolute;
-    height: 70px;
-    width:100%; 
+    position: relative;
+    height: 60px;
+    width:100%;
     background-color: #000000a8;
     color:#ffffff;
     font-size: 17px;
-    margin-bottom:-10px;
+    bottom:0;
+    margin-top:40px;
+
 }
 footer li{
     float:left;
@@ -567,12 +570,12 @@ footer p{
     /*menu items in header */
     /*home page */
     .home_menu{
-        height:170px;        
+        height:170px;
     }
     .home_menu p{
-        font-size:20px;    
+        font-size:20px;
     }
-    
+
     .text, .button_warm, .button_primary{
         font-size: 13px;
     }
@@ -586,7 +589,7 @@ footer p{
         margin-bottom:-50px;
     }
     .button_user{
-        margin:15px;  
+        margin:15px;
     }
     /* end of home page*/
     .all_content{
@@ -609,11 +612,11 @@ footer p{
     li{
         border-radius: 20px;
     }
-    
+
     header nav #left_nav, header nav #right_nav{
         float:none;
         font-size:15px;
-        
+
         min-height:40%;
     }
     #right_nav{
@@ -631,7 +634,7 @@ footer p{
     .form_content{
         width: 80%;
         font-size: 14px;
-        margin:auto;   
+        margin:auto;
     }
     .avatar{
         display:none;
@@ -687,7 +690,7 @@ footer p{
         font-size:15px;
     }
     #prof_grid from input{
-        padding:5px; 
+        padding:5px;
     }
     /*the create ride button*/
     #prof_grid div p button{
@@ -714,7 +717,7 @@ footer p{
         margin:12px;
         margin-bottom:-14px;
     }
-    
+
 
    /*table styling */
    table{
@@ -751,8 +754,9 @@ footer p{
 
    /*footer*/
    footer{
+     position: fixed;
        text-align:center;
-       
+
    }
    footer li{
        float:none;

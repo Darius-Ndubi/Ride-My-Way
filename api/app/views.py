@@ -8,20 +8,9 @@ import json
 """Endpoint to view all rides"""
 @app.route('/api/v1/rides',methods=['GET'])
 def view_rides():
-    #get all titles
-    #new dictionary to add id and title
-    all_rides = {}
-    #loop through the dictionary and get the rides
-    #using .get method to pick out the required fields per ride
-    for ride in rides:
-        ride_id = ride.get('id')
-        ride_title = ride.get('title')
-    
-        #add the id and title to dictionary
-        all_rides.update({ride_id: ride_title})
-    return jsonify(all_rides)
+    return rides
   
-    
+   
 #show details of a ride
 @app.route('/api/v1/rides/<int:id>', methods=['GET'])
 def view_ride(id):
@@ -33,7 +22,7 @@ def view_ride(id):
             #store the ride details in variable
             search = ride
             # return the data in json format
-            return jsonify({'You searched': search})                               
+            return jsonify({search})                               
 
 
 #create a ride
@@ -53,18 +42,7 @@ def add_ride():
     """Append to the list holdng all ride details"""
     rides.append(new_ride)
 
-    #new dictionary to add id and title
-    all_rides = {}
-    #loop through the dictionary and get the rides
-    #using .get method to pick out the required fields per ride
-
-    for ride in rides:
-        ride_id = ride.get('id')
-        ride_title = ride.get('title')
-
-        #add the id and title to dictionary
-        all_rides.update({ride_id: ride_title})
-    return jsonify(all_rides)
+    return (rides)
 
 
 @app.route('/api/v1/rides/<int:id>/<string:requests>', methods=['GET', 'POST'])
@@ -81,7 +59,7 @@ def ride_request(id, requests):
     }
     if request.method == 'POST' and requests == 'join':
         requested.append(ride_request)
-    return jsonify({'Created request': ride_request})
+    return jsonify({ride_request})
 
 
 @app.route('/api/v1/rides/<int:id>', methods=['DELETE'])
@@ -97,7 +75,7 @@ def delete_ride(id):
             #delete the ride entry
             ride_deleted = rides.pop(ride_index)
 
-    return jsonify({'You deleted': ride_deleted})
+    return jsonify({ride_deleted})
 
 
 
@@ -126,17 +104,7 @@ def edit_ride(id):
         """Append to the list holdng all ride details"""
         rides.append(edit_details)
 
-        #new dictionary to add id and title
-        all_rides = {}
-        #loop through the dictionary and find all ids and titles
-
-        for ride in rides:
-            ride_id = ride.get('id')
-            ride_title = ride.get('title')
-
-            #add the id and title to dictionary
-            all_rides.update({ride_id: ride_title})
-        return jsonify(all_rides)
+        return rides
 
 
 @app.route('/api/v1/signup', methods=['GET', 'POST'])
@@ -153,7 +121,7 @@ def signup():
 
     #add the new use to list of users
     users.append(new_user)
-    return jsonify({'users': users})
+    return jsonify({users})
 
 
 @app.route('/api/v1/signin', methods=['GET', 'POST'])
