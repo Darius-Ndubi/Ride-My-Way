@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, request
 from data import rides, requested, users
-from models import Users, Rides, RequestedRides
+from models import Users
 import json
 from werkzeug.exceptions import BadRequest
 from flask_restplus import Api, Resource, fields, reqparse
@@ -205,7 +205,8 @@ class Signup(Resource):
     def post(self):
         self.args=R.get_user_dits()
 
-        self.user=Users(email=self.args['email'],
+        self.user=Users()
+        self.user.create_user(email=self.args['email'],
                         username=self.args['username']
                         ,password=self.args['password']) 
 
@@ -245,10 +246,10 @@ class Add_ride(Resource):
         self.args['r_id'] = self.real_id
 
         
-        #user should be able to add a ride not this way
-        #Ride should not add itself
-        #Use a 
-        self.new_ride = Rides(r_id=self.args['r_id'],
+        #Create an instance of Users class
+        self.new_ride=Users()
+        #from  class Users call the create _ride method
+        self.new_ride.create_ride(r_id=self.args['r_id'],
                             car_license=self.args['car_license'],
                             title=self.args['title'],
                             ride_date=self.args['ride_date'],
@@ -260,11 +261,9 @@ class Add_ride(Resource):
         self.new_ride.addRide(self.new_ride)
 
         self.ride_num += 1
-        
-
         return rides
 
-#user should not add them selves in
+
 
 @api.route('/rides/edit/<int:id>')
 class Edit_ride(Resource):
@@ -281,8 +280,9 @@ class Edit_ride(Resource):
             if self.ride.__getitem__('r_id')==self.id:
                 self.args['r_id']=self.id
                 
+                self.edited_ride=Users()
                 #accept data from user
-                self.edited_ride = Rides(r_id=self.args['r_id'],
+                self.edited_ride.create_ride(r_id=self.args['r_id'],
                                         car_license=self.args['car_license'],
                                         title=self.args['title'],
                                         ride_date=self.args['ride_date'],
@@ -351,13 +351,16 @@ class Requset_ride(Resource):
         self.args['dated'] = self.dated
         self.args['ride_price'] = self.ride_price
 
-        self.ride_req = RequestedRides(req_id=self.args['req_id'], title=self.args['title'], car_reg=self.args['car_reg'],
+
+        self.ride_req=Users()
+        self.ride_req.create_request(req_id=self.args['req_id'], title=self.args['title'], car_reg=self.args['car_reg'],
                                        dated=self.args['dated'], ride_price=self.args['ride_price'],
                                        requester_name=self.args['requester_name'])
 
         self.ride_req.addRequest(self.ride_req)
 
         return requested
+
 
 if __name__=='__main__':
     app.run(debug=True)
