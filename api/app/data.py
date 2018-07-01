@@ -52,6 +52,15 @@ users = [
     }
 ]
 
+registerd_users=[
+    {
+        "email": "ndans",
+        "id": 1,
+        "password": "xas",
+        "username": "asc"
+    }
+]
+
 mock_ride = {
     'id': 4,
     'car_license': 'KCG 001Y',

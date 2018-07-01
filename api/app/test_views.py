@@ -46,10 +46,40 @@ def test_add_ride():
     response = result.post('api/v1/rides', data=json.dumps(mock_ride) ,content_type='application/json')
     json.loads(response.data)
     
-    assert response.json == {'1': 'Troy to Sparta',
-                             '2': 'Troy to Ithaca',
-                             '3': 'The Under world to Athens',
-                             '4': 'Colchins to Athens'}
+    assert response.json == [{
+        'id': 1,
+        'car_license': 'KAC 345T',
+        'title': 'Troy to Sparta',
+        'ride_date': '06-06-2018',
+        'distance': '45',
+        'start_time': '0700',
+        'arrival_time': '1700',
+        'ride_price': '1500'
+
+    },
+        {
+        'id': 2,
+        'car_license': 'KXY 677Y',
+        'title': 'Troy to Ithaca',
+        'ride_date': '06-05-2018',
+        'distance': '49',
+        'start_time': '1000',
+        'arrival_time': '1300',
+        'ride_price': '800'
+
+    },
+        {
+        'id': 3,
+        'car_license': 'XGK 001Y',
+        'title': 'The Under world to Athens',
+        'ride_date': '06-05-2018',
+        'distance': '60',
+        'start_time': '0700',
+        'arrival_time': '1500',
+        'ride_price': '1000'
+
+    }
+    ]
     assert(response.status_code == 200)
 
 
