@@ -1,4 +1,4 @@
-from data import resgisterd_users, loggedin, rides, requested
+from data import resgisterd_users, loggedin, rides, requested, responses
 
 #several clasess t manage user input  eG Manage to manage users
 #rename classes to fit responsibility
@@ -104,3 +104,25 @@ class User(object):
                        "requester_name": self.request_data.requester_name}
 
         requested.append(self.new_ride)
+
+    def create_response(self, resp_id, ride_id, title, num_seats,creator,requester_name,action):
+        self.resp_id = resp_id
+        self.ride_id = ride_id
+        self.title = title
+        self.num_seats = num_seats
+        self.creator=creator
+        self.requester_name = requester_name
+        self.action=action
+
+
+    def addResponse(self, response_data):
+        self.response_data = response_data
+        self.new_ride = {"resp_id": self.response_data.resp_id,
+                         "ride_id": self.response_data.ride_id,
+                         "title": self.response_data.title,
+                         "num_seats": self.response_data.num_seats,
+                         "creator": self.response_data.creator,
+                         "requester_name": self.response_data.requester_name,
+                         "status": self.response_data.action}
+
+        responses.append(self.new_ride)

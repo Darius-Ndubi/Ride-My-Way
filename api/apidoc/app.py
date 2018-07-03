@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, request
-from data import resgisterd_users, loggedin, rides, requested
+from data import resgisterd_users, loggedin, rides, requested, responses
 from models import AppManager,User
-from werkzeug.exceptions import BadRequest
+#from werkzeug.exceptions import BadRequest
 from flask_restplus import Api, Resource, fields, reqparse
 
 #Create an instace of flask
@@ -40,9 +40,13 @@ user_login = api.model("User SignIN", {
 user_ride_request=api.model("Your ride request",{
    "num_seats":fields.Integer  
 })
+user_ride_response=api.model("Respoces to ride",{
+    "action":fields.String
+})
 
 
 class Manage_rides(object):
+    parser = reqparse.RequestParser()
 
     def __init__(self):
         pass
@@ -78,7 +82,6 @@ class Manage_rides(object):
     
     def get_user_dits(self):
 
-        self.parser = reqparse.RequestParser()
         self.parser.add_argument('username', required=True,
                             help="Username cannot be blank!")
         self.parser.add_argument('password', required=True,
@@ -92,7 +95,6 @@ class Manage_rides(object):
 
     def get_user_login(self):
 
-        self.parser = reqparse.RequestParser()
         self.parser.add_argument('email', required=True,
                             help="email cannot be blank!")
         self.parser.add_argument('password', required=True,
@@ -128,14 +130,23 @@ class Manage_rides(object):
         return self.args
         
     def get_request_field(self):
-        self.parser = reqparse.RequestParser()
+
 
         self.parser.add_argument('num_seats', required=True,
-                                 help="numbe rof seats cannot be blank!")
+                                 help="number of seats cannot be blank!")
         
         self.args = self.parser.parse_args()
 
         return self.args
+    def get_ride_response(self):
+
+        self.parser.add_argument('action', required=True,
+                                 help="Action on a response cannot be blank!")
+
+        self.args = self.parser.parse_args()
+
+        return self.args
+        
 
 
 
@@ -279,7 +290,7 @@ class Add_ride(Resource):
            
         for self.i in loggedin:
             self.uname = self.i.get('username')
-        print(self.uname)
+        
 
         #find the number of rides that already exist
         self.ride_num = len(rides)
@@ -318,6 +329,64 @@ class Add_ride(Resource):
         print (rides)
         return self.your_rides
 
+
+@api.route('/user/editride/<int:id>')
+class Edit_ride(Resource):
+    def put(self,id):
+        self.args=R.get_ride_fields()
+        self.id=id
+        self.l=[]
+
+        
+        #check if a user is logged in beffore creating a ride
+        if len(loggedin) == 0:
+            return jsonify({"Error": "Your are not logged in"})
+
+        for self.i in loggedin:
+            self.uname = self.i.get('username')
+        
+
+        for self.detail in rides:
+            #take all the id values and add them to thelist
+            self.l.append(self.detail.get('r_id'))
+
+        if self.id not in self.l:
+            return jsonify({"Error": "Ride does not exist"})
+
+        #check if the ride id and username exist in ride
+        if self.id in self.l:
+            for self.ride in rides:
+                if self.ride.get('creator')=="self.uname":
+                    #allow user to edit
+                    
+                    self.edit_ride=User()
+                    self.edit_ride.create_ride(r_id=self.id,
+                                               creator="self.uname",
+                                               car_license=self.args['car_license'],
+                                               title=self.args['title'],
+                                               ride_date=self.args['ride_date'],
+                                               num_seats=int(self.args['num_seats']),
+                                               distance=self.args['distance'],
+                                               start_time=self.args['start_time'],
+                                               arrival_time=self.args['arrival_time'],
+                                               ride_price=self.args['ride_price'])
+
+                #see if ride existing has a matching title
+                for self.ride in rides:
+                    if self.ride.get("title") == self.args['title']:
+                        return jsonify({"Error": "Let your title be unique, a Ride with a like yours  exists"})
+
+                self.edit_ride.addRide(self.edit_ride)
+
+                #afer edit you can be show your rides
+                self.your_rides = []
+                for self.ride in rides:
+                    if self.ride.get('creator') == "self.uname":
+                        self.your_rides.append(self.ride)
+                return self.your_rides
+
+
+
 @api.route('/user/rides/<int:id>')
 class Delete_ride(Resource):
     def delete(self, id):
@@ -330,8 +399,6 @@ class Delete_ride(Resource):
             #take all the id values and add them to thelist
             self.l.append(self.detail.get('r_id'))
         
-        print ("ids")
-        print (self.l)
 
         if self.id not in self.l:
             return jsonify({"Error": "Ride does not exist"})
@@ -344,13 +411,13 @@ class Delete_ride(Resource):
             #get users username
             for self.i in loggedin:
                     self.uname = self.i.get('username')
-            print(self.uname)
+            
        
         #check if the ride has the users uname
         if self.id in self.l:
             for self.ride in rides:
                 if self.ride.get('creator') == self.uname and self.ride.get('r_id') == self.id:
-                    print self.ride
+                    #print self.ride
                     self.ride_index = rides.index(self.ride)
                     rides.pop(self.ride_index)
                     return ("Success"), 200
@@ -430,67 +497,91 @@ class Request_Ride(Resource):
 
 ########------------------not up to work yet -----------#
 #--not up to task yet ----#
-@api.route('/user/rides/responses/<string:action>')
-class Request_Ride(Resource):
-    #to dislpay all the ride requests
+
+# to show all ride requests and responses linked to your account and for the rides you have created
+@api.route('/user/rides/responses')
+class GetResponse_Ride(Resource):
     def get(self):
-        """
+        self.reqs=[]
+        self.respns=[]
+        
         #check if the user is logged in and if logged in pick their username
         if len(loggedin) == 0:
             return jsonify({"Error": "Your are not logged in"})
         
         for self.i in loggedin:
             self.uname = self.i.get('username')
-        print(self.uname)
-        """
-        #load all the ride requests
-
+        #print(self.uname)
+        
+        #ride requests made to rides you have created
         for self.requestss in requested:
-            if self.requestss.get('creator') == 'Yagami Light':
-                return jsonify({self.requestss})
-        pass
+            if self.requestss.get('creator') == self.uname:
+                self.reqs.append(self.requestss)
+            else:
+                return jsonify ({"Report": "No requests made too your ride yet"})
+            #return jsonify()
+        print(responses)
+        #responses from other peoples rides that you requested and are linked to your username
+        for self.resp in responses:
+            if self.resp.get('requester_name') ==self.uname:
+                self.respns.append(self.resp)
+            else:
+                return jsonify ({"Report":"No responses have been sent yet!"})
+            
+        return jsonify({"Requests to your rides": self.reqs},{"Resonses to your requests are": self.respns})
+
+@api.route('/user/rides/responses/<int:id>')
+class PostResponse_Ride(Resource):      
         
 
-    def post(self, id,action):
+    def post(self, id):
+        self.args = R.get_ride_response()
         self.id =id
-        self.action=action
-        """
+
         #check if the user is logged in and if logged in pick their username
         if len(loggedin) == 0:
             return jsonify({"Error": "Your are not logged in"})
         
         for self.i in loggedin:
             self.uname = self.i.get('username')
-        print(self.uname)
-        """
-        pass
-        
-        
+
+        #you can either accept or deny a request
+        #locate the request you want to respond to 
+        for self.req in requested:
+            if self.req.get('req_id')==self.id and self.req.get('creator')==self.uname:
+                #load the request details and append the action 
+                self.ride_id = self.req.get('ride_id')
+                self.ride_title=self.req.get('title')
+                self.num_seats = self.req.get('num_seats')
+                self.requester_name = self.req.get('requester_name')
+                
+                #find theumber of responses created
+                self.resp_num = len(responses)
+
+                #respose id should be based on the number of existing responses
+                self.resp_id=self.resp_num+1
+
+                self.new_resp=User()
+                self.new_resp.create_response(resp_id=self.resp_id, ride_id=self.ride_id, title=self.ride_title,
+                                              num_seats=self.num_seats, creator=self.uname, requester_name=self.requester_name,action=self.args['action'])
+
+                self.new_resp.addResponse(self.new_resp)
+                
+                return jsonify({"Success":"Your response has been sent"})
+            else:
+                return jsonify ({"Error":"You cannot respond to this ride request"})
 
 
-#show user ride history since login
-@api.route('/user/profile')
-class User_Profile(Resource):
-    def get(self):
-        """
-        #check if the user is logged in and if logged in pick their username
+@api.route('/user/signout')
+class User_signout(Resource):
+    def post(self):
+    #check if the user is signed in
         if len(loggedin) == 0:
             return jsonify({"Error": "Your are not logged in"})
 
-        for self.i in loggedin:
-            self.uname = self.i.get('username')
-        print(self.uname)
-        """
-        #---showing list of rides user as created -----#
-        self.your_rides=[]
-        for self.ride in rides:
-            if self.ride.get('creator')=="Yagami Light":
-                self.your_rides.append(self.ride)
-        return jsonify({"Your Rides":self.your_rides})
-
-#endpoint for user edit ride
-#endpoint for user signou#
-#------------------end of block to be fixed --------#
+        #clear the user data from loggedin user list
+        loggedin.pop()
+        return jsonify({"Success":"You are successfully signed out"})
 
 
 #a visitor can
@@ -500,7 +591,7 @@ class View_rides(Resource):
         return R.get_list()
 
 
-#A visitoe can 
+#A visitor can 
 @api.route('/ride/<int:id>')
 class View_ride(Resource):
     def get(self, id):
