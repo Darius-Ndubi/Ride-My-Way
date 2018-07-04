@@ -38,7 +38,7 @@ class Manage_rides(object):
                             help="Distance cannot be blank!")
         self.parser.add_argument('title', required=True,
                             help="Title cannot be blank!")
-        self.parser.add_argument('no_seats', required=True,
+        self.parser.add_argument('num_seats', required=True,
                              help="Number of seats cannot be blank!")
         """self.parser.add_argument('r_id', required=True,
                             help="ID cannot be blank!")"""
@@ -48,8 +48,8 @@ class Manage_rides(object):
                             help="arrival_time cannot be blank!")
         self.parser.add_argument('ride_price', required=True,
                             help="ride_price cannot be blank!")
-        self.parser.add_argument('car_lisense', required=True,
-                            help="car_lisense cannot be blank!")
+        self.parser.add_argument('car_license', required=True,
+                            help="car_license cannot be blank!")
 
         self.args = self.parser.parse_args()
 
@@ -98,18 +98,27 @@ class Add_ride(Resource):
     #@jwt_required
     def post(self):
         self.args = R.get_ride_fields()
-        #print (session[username])
+ 
         self.new_ride=User()
         #check if title to be entered exists
+
         self.exist=self.new_ride.checkRideExistance(self.args['title'])
+        
         if self.exist:
             return ({"Error":"A Title like the one you want to enter exists,Let it Be unique"})
+        
         #if ride is unique let the user post it
         else:
             #save the rides details
-            self.new_ride.create_ride(car_lisense=self.args['car_lisense'],title=self.args['title'],ride_date=self.args['ride_date'],distance=self.args['distance'],no_seats=self.args['no_seats'],start_time=self.args['start_time'],arrival_time=self.args['arrival_time'],ride_price=self.args['ride_price'],creator="Yagami_Light",)
+            self.new_ride.create_ride(car_license=self.args['car_license'],title=self.args['title'],ride_date=self.args['ride_date'],distance=self.args['distance'],num_seats=self.args['num_seats'],start_time=self.args['start_time'],arrival_time=self.args['arrival_time'],ride_price=self.args['ride_price'],creator="Yagami_Light",)
             return ({"Success":"Your ride has been created and posted"})
 
-        
+
+@api.route('/rides')
+class Get_rides(Resource):
+    def get(self):
+        self.all_rides=User()
+        return (self.all_rides.get_rides())
+
 if __name__=='__main__':
     app.run(debug=True)

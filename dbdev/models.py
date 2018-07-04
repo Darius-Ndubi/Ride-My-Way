@@ -1,6 +1,6 @@
 import psycopg2
 
-from flask import abort,Response
+from flask import abort,Response,jsonify
 
 
 connect = psycopg2.connect("dbname='ridemyway' host='localhost' user='dario' password='riot'")
@@ -53,22 +53,35 @@ class User(object):
         return self.existance
      
     #create a ride method for user
-    def create_ride(self,creator, car_lisense, title, ride_date,no_seats, distance, start_time, arrival_time, ride_price):
-        self.car_lisense = car_lisense
+    def create_ride(self,creator, car_license, title, ride_date,num_seats, distance, start_time, arrival_time, ride_price):
+        self.car_license = car_license
         self.title = title
-        self.ride_date = ride_date
-        self.no_seats=no_seats
+        self.ride_date =ride_date
+        self.num_seats=num_seats
         self.distance = distance
         self.start_time = start_time
         self.arrival_time = arrival_time
         self.ride_price = ride_price
         self.creator=creator
-        curs=connect.cursor()
+        #ensuring that all field are enterd
 
-        curs.execute("INSERT INTO ride (car_lisense,title,ride_date,no_seats,distance,start_time,arrival_time,ride_price,creator) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s)",(self.car_lisense,self.title,self.ride_date,self.no_seats,self.distance,self.start_time,self.arrival_time,self.ride_price,self.creator))
+        curs=connect.cursor()
+        
+        curs.execute("INSERT INTO ride (car_license,title,ride_date,num_seats,distance,start_time,arrival_time,ride_price,creator) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s)",(self.car_license,self.title,self.ride_date,self.num_seats,self.distance,self.start_time,self.arrival_time,self.ride_price,self.creator))
 
         connect.commit()
         curs.close()
+
+    #method to find all rides in db
+    def get_rides(self):
+        curs=connect.cursor()
+        curs.execute("SELECT * FROM ride")
+        self.rides=curs.fetchall()
+        print (self.rides)
+        curs.close()
+        return jsonify(self.rides)
+
+    
         
             
 

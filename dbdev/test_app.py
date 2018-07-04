@@ -16,7 +16,6 @@ mock_ride={
     }
 
 
-
 """
     A test to test users sign in
 """
@@ -30,11 +29,18 @@ def test_signin():
 """
     A test to test if rides are being added to the database
 """
-def test_add_ride():
+def test_Add_ride():
     result=app.test_client()
     response=result.post('/rides',data=json.dumps(mock_ride),content_type='application/json')
     assert(response.status_code==200)
 
+"""
+    A test on get all rides from db
+"""
+def test_Get_rides():
+    result=app.test_client()
+    response=result.get('/rides')
+    assert(response.status_code==200)
 
 
 
