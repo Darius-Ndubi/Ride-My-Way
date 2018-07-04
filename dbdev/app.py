@@ -58,7 +58,7 @@ class Signup(Resource):
         self.passwd_hash=generate_password_hash(self.passwd)
         
         #print (self.passwd_hash)
-        self.new_user=DbManager(email=self.args['email'],username=self.args['username'],password=self.args['password'])
+        self.new_user=DbManager(email=self.args['email'],username=self.args['username'],password=self.passwd_hash)
         #self.new_user.signupuser(email=self.new_user.email,username=self.new_user.username,password=self.new_user.password)
         
         self.new_user.signupUser()
