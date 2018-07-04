@@ -2,7 +2,6 @@ from flask import Flask,request,jsonify
 import json
 from flask_restplus import Api,Resource,fields,reqparse
 from models import DbManager
-from werkzeug.security import generate_password_hash
 
 #create an instance of flask
 app=Flask(__name__)
@@ -51,21 +50,22 @@ class Signup(Resource):
         #check if the email has @ and .com
         elif '@' and '.com' not in self.args['email']:
             return jsonify({"Error": "Email as enterd is not valid"})
-
-        #hashing passwd
-        self.passwd=self.args['password']
-        #hashing the password
-        self.passwd_hash=generate_password_hash(self.passwd)
+            
+        self.new_user=DbManager(email=self.args['email'],username=self.args['username'],password=self.args['password'])
         
-        #print (self.passwd_hash)
-        self.new_user=DbManager(email=self.args['email'],username=self.args['username'],password=self.passwd_hash)
-        #self.new_user.signupuser(email=self.new_user.email,username=self.new_user.username,password=self.new_user.password)
+        #check if the usr exists
+        self.exist=self.new_user.checkUser()
+        #if user is found give info why they cant be registerd
+        if self.exist:
+            return({"Email Error":"Email is already linked to another user, pick another one"})
         
-        self.new_user.signupUser()
+        #if not found allow them to register with us
+        else:
+            self.new_user.signupUser()
+            return({"Successfull":"Proceed to login"})
 
-        return {"Success":"login"}
 
-
+    
 @api.route('/auth/signin')
 class Signin(Resource):
     pass
