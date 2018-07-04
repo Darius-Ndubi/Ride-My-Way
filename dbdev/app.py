@@ -1,8 +1,8 @@
 from flask import Flask,request,jsonify
 import json
 from flask_restplus import Api,Resource,fields,reqparse
-from models import DbManager#flask-jwt-extended
-#flask-jwt-extended
+from models import DbManager
+from werkzeug.security import generate_password_hash
 
 #create an instance of flask
 app=Flask(__name__)
@@ -52,7 +52,12 @@ class Signup(Resource):
         elif '@' and '.com' not in self.args['email']:
             return jsonify({"Error": "Email as enterd is not valid"})
 
-        #
+        #hashing passwd
+        self.passwd=self.args['password']
+        #hashing the password
+        self.passwd_hash=generate_password_hash(self.passwd)
+        
+        #print (self.passwd_hash)
         self.new_user=DbManager(email=self.args['email'],username=self.args['username'],password=self.args['password'])
         #self.new_user.signupuser(email=self.new_user.email,username=self.new_user.username,password=self.new_user.password)
         
