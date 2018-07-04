@@ -3,3 +3,4 @@
 /api/.pytest_cache
 /api/.vscode
 .cache
+/dbdev/dbwork
