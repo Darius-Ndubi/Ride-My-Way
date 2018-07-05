@@ -42,6 +42,13 @@ def test_Get_rides():
     response=result.get('/rides')
     assert(response.status_code==200)
 
+"""
+A test on geting a specific ride
+"""
+def test_Get_ride():
+    result=app.test_client()
+    response=result.get('/rides/1')
+    assert(response.status_code==200)
 
 
 

@@ -77,9 +77,21 @@ class User(object):
         curs=connect.cursor()
         curs.execute("SELECT * FROM ride")
         self.rides=curs.fetchall()
-        print (self.rides)
+        #print (self.rides)
         curs.close()
         return jsonify(self.rides)
+
+    #method to find specific ride in db
+    def get_ride(self,search_id):
+        self.search_id=search_id
+        
+        #locate ride with the matching id in the db and return it (email)s",{'email':self.email}
+        curs=connect.cursor()
+        curs.execute("SELECT * FROM ride WHERE r_id=%(r_id)s",{'r_id':self.search_id})
+        #get the whole row
+        self.found=curs.fetchall()
+        #print (self.found)
+        return self.found
 
     
         

@@ -120,5 +120,21 @@ class Get_rides(Resource):
         self.all_rides=User()
         return (self.all_rides.get_rides())
 
+@api.route('/rides/<int:id>')
+class Get_ride(Resource):
+    def get(self,id):
+        self.id=id
+
+        self.search_ride=User()
+
+        self.search_ride=self.search_ride.get_ride(self.id)
+
+        #if ride is found show the ride to user
+        if self.search_ride:
+            return self.search_ride
+        else:
+            return ({"Error":"Ride does not exist"})
+
+
 if __name__=='__main__':
     app.run(debug=True)
