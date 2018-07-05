@@ -10,7 +10,7 @@ install:
 
 script: 
   - cd dbdev
-  - nosetests test_app.py --with-coverage --cover-package=app
+  - nosetests test_app.py --with-coverage 
 
 after_success:
   - coveralls
