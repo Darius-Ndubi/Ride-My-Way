@@ -9,7 +9,7 @@ install:
   - pip install coveralls
 
 script: 
-  - cd dbdev
+  - cd dbdev/tests
   - nosetests test_app.py --with-coverage 
 
 after_success:
