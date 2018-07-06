@@ -1,0 +1,8 @@
+[
+  "tests/test_app.py::test_signin",
+  "tests/test_app.py::test_Add_ride",
+  "tests/test_app.py::test_signup",
+  "tests/test_app.py::test_Get_rides",
+  "tests/test_app.py::test_Get_ride",
+  "tests/test_app.py::test_Ride_requests"
+]

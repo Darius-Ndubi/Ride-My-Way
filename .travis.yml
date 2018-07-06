@@ -1,7 +1,7 @@
 language: python
 
 python:
-  - "2.7.15"
+  - "3.5.2"
   
 install:
   - pip install -r requirements.txt
@@ -9,8 +9,8 @@ install:
   - pip install coveralls
 
 script: 
-  - cd api/app
-  - nosetests test_views.py --with-coverage --cover-package=app
+  - cd dbdev/tests
+  - nosetests test_app.py --with-coverage 
 
 after_success:
   - coveralls
