@@ -65,7 +65,7 @@ class Signup(Resource):
 
 
 #@api.route('/auth/signin')
-class Signin(Resource):
+class Login(Resource):
     def post (self):
         args = R.get_user_login()
 
@@ -86,4 +86,4 @@ class Signin(Resource):
 
 
 api.add_resource(Signup, '/auth/signup')
-api.add_resource(Signin, '/auth/signin')
+api.add_resource(Login, '/auth/login')

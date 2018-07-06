@@ -1,9 +1,11 @@
 import pytest
 import psycopg2
-from endpoints import endpoints
+from app import app
+import json
 
 connect = psycopg2.connect("dbname='testride' host='localhost' user='dario' password='riot'")
 curs = connect.cursor()
+
 
 def createall_tables():
     commands=(
@@ -50,12 +52,20 @@ def createall_tables():
     
     curs.close()
     connect.commit()
-    connect.close()
+    #connect.close()
+
+def drop_tables():
+    """DROP TABLE new_user"""
+    """DROP TABLE ride"""
+    """DROP TABLE requestss"""
+    curs.close()
+    connect.commit()
 
 
 createall_tables()
+drop_tables()
 
-mock_sign={"email":"yagamidelight@gmail.com","password":"delight"}
+mock_sign={"email":"yagfafmidelight@gmail.com","password":"delight"}
 mock_reg={"email":"yagamidelight@gmail.com","username":"delight","password":"delight"}
 mock_ride={
     "car_lisense": "KAC 345T",
@@ -69,20 +79,41 @@ mock_ride={
     "creator":"Yagami Light"
     }
 """
+A fuction to find users signed in
+
+"""
+def registered():
+    curs = connect.cursor()
+    curs.execute("SELECT * FROM new_user")
+    all=curs.fetchall()
+    connect.commit()
+    #close the connection
+    curs.close()
+    return len(all)
+
+def header_token():
+    result=app.test_client()
+    result.post('/api/v1/auth/signup', data=json.dumps(mock_reg),content_type='application/json')
+    response=result.post('/api/v1/auth/login', data=json.dumps(mock_sign),content_type='application/json')
+    return response
+
+header_token()
+
+"""
     A test to test users sign  up
 """
 def test_signup():
-    result=users.test_client()
-    response=result.post('/auth/signup', data=json.dumps(mock_reg),content_type='application/json')
-    assert(response.status_code==200)
+    result=app.test_client()
+    response=result.post('/api/v1/auth/signup', data=json.dumps(mock_reg),content_type='application/json')
+    assert(response.status_code==201)
+
 
 """
     A test to test users sign in
 """
 def test_signin():
-    
     result=app.test_client()
-    response=result.post('/auth/signin', data=json.dumps(mock_sign),content_type='application/json')
+    response=result.post('/api/v1/auth/login', data=json.dumps(mock_sign),header={"Authorization Header":response},content_type='application/json')
     assert(response.status_code==200)
 
 
@@ -91,15 +122,21 @@ def test_signin():
 """
 def test_Add_ride():
     result=app.test_client()
-    response=result.post('/rides',data=json.dumps(mock_ride),content_type='application/json')
+    response=result.post('/api/v1/rides',data=json.dumps(mock_ride),content_type='application/json')
     assert(response.status_code==200)
 
+def test_signup():
+    result=app.test_client()
+    old_num=registered()
+    response=result.post('/auth/signup', data=json.dumps(mock_reg),content_type='application/json')
+    new_num=registered()
+    assert(old_num+1>new_num),201
 """
     A test on get all rides from db
 """
 def test_Get_rides():
     result=app.test_client()
-    response=result.get('/rides')
+    response=result.get('/api/v1/rides')
     assert(response.status_code==200)
 
 """
@@ -107,26 +144,19 @@ A test on geting a specific ride
 """
 def test_Get_ride():
     result=app.test_client()
-    response=result.get('/rides/1')
+    response=result.get('/api/v1/rides/1')
     assert(response.status_code==200)
 """
     A test on regetting ride requests
 """
-def rest_Ride_requests():
+def test_Ride_requests():
     result=app.test_client()
-    response=result.get('/rides/1/requests')
+    response=result.get('/api/v1/rides/1/requests')
     assert(response.status_code==200)
 
-"""
-    A test on regetting ride requests
-"""
-
-def rest_Ride_requests():
-    result=app.test_client()
-    response=result.post('/rides/1/requests')
 
 
-
+drop_tables()
 
 
 

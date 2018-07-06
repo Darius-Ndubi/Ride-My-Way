@@ -100,12 +100,15 @@ class Ride_requests(Resource):
 #securing endpoint with jwt_required
     @jwt_required
     def get(self,id):
-        self.id=id
-        requester_name=get_jwt_identity()
-        if requester_name:
-            User.view_requests()
+        
+        creator_name=get_jwt_identity()
+        #print(creator_name)
+        found=User.view_requests(creator_name)
+        if found :
+            #print(found)
+            return (found)
         else:
-            return ({"Error":"Token error"}),400
+            return ({"Error":"No requests have been made to your ride yet"}),400
 
 
     @jwt_required
@@ -125,8 +128,8 @@ class Ride_requests(Resource):
 
 
 class Ride_response(Resource):
-    @jwt_required
-    def put(self,req_id):
+    #@jwt_required
+    def put(self,req_id,ride_id):
         self.req_id=req_id
         exist=User.ride_reponse(req_id)
         print (exist)
@@ -145,3 +148,4 @@ api.add_resource(Add_ride, '/rides')
 api.add_resource(Get_rides, '/rides')
 api.add_resource(Get_ride, '/rides/<int:id>')
 api.add_resource(Ride_requests, '/rides/<int:id>/requests')
+api.add_resource(Ride_response, '/rides/<int:ride_id>/requests/<int:req_id>')

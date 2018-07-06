@@ -1,0 +1,5 @@
+{
+  "tests/test_app.py::test_Add_ride": true,
+  "tests/test_app.py::test_Ride_requests": true,
+  "tests/test_app.py::test_signin": true
+}

@@ -133,18 +133,26 @@ class User(object):
         curs.close()
     
     @staticmethod
-    def view_requests(requester_name):
+    def view_requests(creator):
         curs=connect.cursor()
-        curs.execute("SELECT * FROM requestss WHERE requester_name=%(requester_name)s",{'requester_name':requester_name})
-        row=curs.fetchall()
+        curs.execute("SELECT * FROM requestss WHERE creator=%(creator)s",{'creator':creator})
+        rows=curs.fetchall()
         if rows:
-            return rows
+            for i in rows:
+                for j in i:
+                    if j == creator:
+                       your_ride=i 
+            return [your_ride]
+        elif rows is None:
+            return ({"Info":"You have not created any ride"}),204
         else:
             return ({"Info":"No requests have been made to your rides yet"}),204
+    
+    
     @staticmethod
     def ride_reponse(req_id):
         curs=connect.cursor()
-        curs.execute("SELECT * FROM requestss WHERE req_id=%(req_id)s,{req_id",{'req_id':req_id})
+        curs.execute("SELECT * FROM requestss WHERE req_id=%(req_id)s and ride_id=%(ride_id)s",{'req_id':req_id,'ride_id':req_id})
         row=curs.fetchall()
         if row:
             return row
