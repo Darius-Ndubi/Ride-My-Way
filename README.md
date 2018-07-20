@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/Darius-Ndubi/Ride-My-Way.svg?branch=ch-code-to-pep-158578132)](https://travis-ci.org/Darius-Ndubi/Ride-My-Way)
 
-[![Coverage Status](https://coveralls.io/repos/github/Darius-Ndubi/Ride-My-Way/badge.svg?branch=ch-code-to-pep-158578132)](https://coveralls.io/github/Darius-Ndubi/Ride-My-Way?branch=ch-code-to-pep-158578132)
+[![Coverage Status](https://coveralls.io/repos/github/Darius-Ndubi/Ride-My-Way/badge.svg?branch=ft-unknown-user-reject-158595336)](https://coveralls.io/github/Darius-Ndubi/Ride-My-Way?branch=ft-unknown-user-reject-158595336)
 
 
 
